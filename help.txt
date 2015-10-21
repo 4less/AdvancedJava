@@ -1,0 +1,31 @@
+############## HELP ############################################################
+#                                                                              #
+# RunFastaReader is a tool to read fasta-files, and print them in a formatted  #
+# manner. The following flags define the command line input:                   #
+#                                                                              #
+# -h (--h, -help, --help):                                                     #
+#	Prints this help to the console (you might have got it before you read this#
+# -i <inputFile> (--i, -input, --input):                                       #
+# 	after the flag -i follows the file name of the fasta-file to be read.      #
+# -o <outputFile> (--o, -output, --output):                                    #
+# 	outputFile specifies where to write the formatted fasta file               #
+#	(not yet implemented)                                                      #
+# -l <expression> (--l, -lines, --lines):                                      #
+#	The expression defines which entries in the fasta-file are to be printed.  #
+#	expression contains numbers and/or number ranges. If it contains more than #
+#	one number/ranges they are seperated by a comma. Ranges consist of two     #
+#	numbers denoting the start and end point of the range, seperated by a      #
+#	dash. Example:                                                             #
+#	1,2,4-10,500                                                               #
+#	The lines 1,2,4,5,6,7,8,9,10,500 are printed.                              #
+#	Duplicates are removed, lines are printed in an ordered fashion.           #
+# -r <int> (--r, -header, --header):                                           #
+#	int sets the maximum number of characters of the header that shall be      #
+#	displayed.                                                                 #
+# -s <int> (--s, -sequence, --sequences):                                      #
+#	int sets the maximum number of characters of the sequence, that shall      #
+#	be displayed until a new line.                                             #
+#                                                                              #
+# Note: the fasta-file must have the extension .fasta or .fa and must only     #
+# consist of chars element {AGCTU-} as this reader is for RNA.                 #
+################################################################################
