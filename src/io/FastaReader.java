@@ -66,7 +66,7 @@ public class FastaReader extends FastA {
      * and max length of 60 for the sequence before breaking the line.
      */
     public void print() {
-        this.print(20,60,null);
+        System.out.println(this.print(20,60,null,true,true,true));
     }
 
     /**
@@ -87,7 +87,7 @@ public class FastaReader extends FastA {
      * @param lengthHeader maxlength header
      * @param lengthSequence count of chars before beginning a new line
      */
-    public String print(int lengthHeader, int lengthSequence, int[] lines) {
+    public String print(int lengthHeader, int lengthSequence, int[] lines, boolean header, boolean sequence, boolean numbers) {
         String result = "";
         if (!this.isEmpty()) {
             int begin = 0;
@@ -99,24 +99,28 @@ public class FastaReader extends FastA {
             String spacer = "     ";
 
             do{
-                String beginString = String.valueOf(begin+1);
-                String endString = String.valueOf(end+1);
-                int spaceBeginEnd = lengthSequence-beginString.length()-endString.length();
-                result += this.spaces(lengthHeader)+spacer+beginString+this.spaces(spaceBeginEnd)+endString+"\n";
-
+                if(numbers) {
+                    String beginString = String.valueOf(begin + 1);
+                    String endString = String.valueOf(end + 1);
+                    int spaceBeginEnd = lengthSequence - beginString.length() - endString.length();
+                    result += this.spaces(lengthHeader) + spacer + beginString + this.spaces(spaceBeginEnd) + endString + "\n";
+                }
                 if(lines != null) {
                     for(int i = 0; i < lines.length; i++) {
                         int line = lines[i]-1;
                         if(line < this.getLength()) {
-                            result += formatHeader(lengthHeader, this.getHeader(line).toString()) + spacer;
-                            result += this.getSequence(line).substring(begin, end + 1) + "\n";
+                            if(header)
+                                result += formatHeader(lengthHeader, this.getHeader(line).toString()) + spacer;
+                            if(sequence)
+                                result += this.getSequence(line).substring(begin, end + 1) + "\n";
                         }
                     }
                 } else {
                     for (int i = 0; i < this.getLength(); i++) {
-                        result += formatHeader(lengthHeader, this.getHeader(i).toString()) + spacer;
-                        //result += this.spaces(lengthHeader - this.getHeader(i).toString().length());
-                        result += this.getSequence(i).substring(begin, end + 1) + "\n";
+                        if(header)
+                            result += formatHeader(lengthHeader, this.getHeader(i).toString()) + spacer;
+                        if(sequence)
+                            result += this.getSequence(i).substring(begin, end + 1) + "\n";
                     }
                 }
                 result += "\n";

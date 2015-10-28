@@ -52,8 +52,6 @@ public class AlignmentViewer extends Application {
         VBox right = new VBox();
         VBox center = new VBox();
 
-        Label label=new Label("Hello World!");
-
         Button select = new Button("Select all");
         Button clears = new Button("Clear Selection");
         Button apply = new Button("Apply");
@@ -62,12 +60,25 @@ public class AlignmentViewer extends Application {
         CheckBox sequenc = new CheckBox("Show Sequences");
         CheckBox shownum = new CheckBox("Show Numbering");
 
-
-        select.setOnAction((value)-> Platform.exit());
-
         Label content = new Label("Test");
         content.setFont(Font.font("Monospaced", 12));
-        content.setText(fastaReader.print(20,60, null));
+        checkBoxEval(content,headers,sequenc,shownum);
+
+        select.setOnAction((event)-> {
+            headers.setSelected(true);
+            sequenc.setSelected(true);
+            shownum.setSelected(true);
+        });
+        clears.setOnAction((event)-> {
+            headers.setSelected(false);
+            sequenc.setSelected(false);
+            shownum.setSelected(false);
+        });
+        apply.setOnAction((event) -> {
+            this.checkBoxEval(content,headers,sequenc,shownum);
+        });
+
+
 
         top.getChildren().add(new Label("View Alignment:"));
         center.getChildren().add(content);
@@ -86,16 +97,23 @@ public class AlignmentViewer extends Application {
         Scene scene=new Scene(root,800,400);
 
         headers.setOnAction((event)-> {
-            if(headers.isSelected())
-                content.setText(fastaReader.print(20,60,null));
-            if(!headers.isSelected())
-                content.setText("");
+            checkBoxEval(content,headers,sequenc,shownum);
+        });
+        sequenc.setOnAction((event)-> {
+            checkBoxEval(content,headers,sequenc,shownum);
+        });
+        shownum.setOnAction((event)-> {
+            checkBoxEval(content,headers,sequenc,shownum);
         });
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Alignment Viewer");
 
         primaryStage.show();
+    }
+
+    public void checkBoxEval(Label label, CheckBox headers, CheckBox sequenc, CheckBox shownum) {
+        label.setText(fastaReader.print(20,60,null,headers.isSelected(),sequenc.isSelected(),shownum.isSelected()));
     }
 
     public static void main(String[] args) {
