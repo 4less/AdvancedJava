@@ -2,46 +2,19 @@ package io;
 
 import java.util.Vector;
 
-/**
- * Created by Joachim on 20/10/2015.
- *
- * Class Sequence representing a sequence of Nucleotides.
- * @param header    yields the header for the sequence
- * @param sequence  Vector<Nucleotide> yielding a sequence of Nucleotides
- * @param length    int length of sequence
- */
 public class Sequence {
-    private Header header;
+    private String header;
     private Vector<Nucleotide> sequence;
     private int length;
 
     /**
-     * Constructor without any arguments. Initiate new Sequence and Header object
-     */
-    public Sequence() {
-        this.header = new Header(">", this);
-        this.sequence = new Vector<Nucleotide>();
-        this.length = 0;
-    }
-
-    /**
-     * initiate Sequence with header by given String and empty sequence
+     *
+     * @param sequence
      * @param header
-     */
-    public Sequence(String header) {
-        this.header = new Header(header, this);
-        this.sequence = new Vector<Nucleotide>();
-        this.length = 0;
-    }
-
-    /**
-     * Constructor for Sequence
-     * @param sequence  String sequence to construct Sequence object
-     * @param header    String header to construct Header object
      * @throws Exception
      */
     public Sequence(String sequence, String header) throws Exception {
-        this.header = new Header(header, this);
+        this.header = header;
         this.sequence = new Vector<Nucleotide>();
         int length = sequence.length();
         for(int i = 0; i < length; i++)
@@ -69,9 +42,8 @@ public class Sequence {
             if(this.length < end)
                 end = this.length;
             String result = "";
-            for (int i = begin; i < end; i++) {
-                result += sequence.get(i);
-            }
+            for (int i = begin; i < end; i++)
+                result = result + sequence.get(i);
             return result;
         } else
             return "";
@@ -88,23 +60,23 @@ public class Sequence {
 
     /**
      * is this object empty?
-     * @return
+     * @return boolean
      */
     public boolean isEmpty() {
         return this.sequence == null || this.sequence.isEmpty();
     }
 
     /**
-     * Return corresponding Header object
-     * @return
+     * Getter for header
+     * @return String header
      */
-    public Header getHeader() {
+    public String getHeader() {
         return header;
     }
 
     /**
      * get Length of sequence
-     * @return
+     * @return int length of sequence
      */
     public int getLength() {
         return length;

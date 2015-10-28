@@ -66,7 +66,7 @@ public class FastaReader extends FastA {
      * and max length of 60 for the sequence before breaking the line.
      */
     public void print() {
-        System.out.println(this.print(20,60,null,true,true,true));
+        System.out.println(this.print(20, 60, null, true, true, true));
     }
 
     /**
@@ -88,6 +88,9 @@ public class FastaReader extends FastA {
      * @param lengthSequence count of chars before beginning a new line
      */
     public String print(int lengthHeader, int lengthSequence, int[] lines, boolean header, boolean sequence, boolean numbers) {
+        // makes no sense to display numbers when sequences are disabled
+        if(!sequence)
+            numbers = false;
         String result = "";
         if (!this.isEmpty()) {
             int begin = 0;
@@ -103,26 +106,39 @@ public class FastaReader extends FastA {
                     String beginString = String.valueOf(begin + 1);
                     String endString = String.valueOf(end + 1);
                     int spaceBeginEnd = lengthSequence - beginString.length() - endString.length();
-                    result += this.spaces(lengthHeader) + spacer + beginString + this.spaces(spaceBeginEnd) + endString + "\n";
+                    if(header)
+                        result = result + this.spaces(lengthHeader) + spacer;
+                    result = result + beginString + this.spaces(spaceBeginEnd) + endString + "\n";
                 }
                 if(lines != null) {
                     for(int i = 0; i < lines.length; i++) {
                         int line = lines[i]-1;
                         if(line < this.getLength()) {
                             if(header)
-                                result += formatHeader(lengthHeader, this.getHeader(line).toString()) + spacer;
-                            if(sequence)
-                                result += this.getSequence(line).substring(begin, end + 1) + "\n";
+                                result += formatHeader(lengthHeader, this.getHeader(line));
+                            if(sequence) {
+                                if(header)
+                                    result = result + spacer;
+                                result = result + this.getSequence(line).substring(begin, end + 1) + "\n";
+                            }
                         }
                     }
                 } else {
                     for (int i = 0; i < this.getLength(); i++) {
-                        if(header)
-                            result += formatHeader(lengthHeader, this.getHeader(i).toString()) + spacer;
-                        if(sequence)
-                            result += this.getSequence(i).substring(begin, end + 1) + "\n";
+                        if(header) {
+                            result = result + (formatHeader(lengthHeader, this.getHeader(i)));
+                            if (!sequence)
+                                result = result + "\n";
+                        }
+                        if(sequence) {
+                            if(header)
+                                result = result + spacer;
+                            result = result + this.getSequence(i).substring(begin, end + 1) + "\n";
+                        }
                     }
                 }
+                if(!sequence)
+                    break;
                 result += "\n";
                 begin += lengthSequence;
                 end += lengthSequence;
@@ -132,6 +148,13 @@ public class FastaReader extends FastA {
         return result;
     }
 
+    /**
+     *
+     * Format a given string that it breaks a line if it gets too long
+     * @param lineLength
+     * @param line
+     * @return
+     */
     public String formatString(int lineLength, String line) {
         int seqLength = line.length();
         int lineCount = seqLength / lineLength;
@@ -166,10 +189,15 @@ public class FastaReader extends FastA {
      * @param lineLength
      */
     public void printEntry(int index, int lineLength) {
-        System.out.println(formatHeader(lineLength, this.getHeader(index).toString()));
+        System.out.println(formatHeader(lineLength, this.getHeader(index)));
         System.out.println(formatString(lineLength, this.getSequence(index).toString()));
     }
 
+    /**
+     * get Lines to
+     * @param pattern
+     * @return
+     */
     public static int[] getLines(String pattern) {
         String[] cache = pattern.split(",");
         Vector<Integer> inputLines = new Vector<Integer>();
