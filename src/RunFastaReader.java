@@ -1,3 +1,6 @@
+
+import commandline.*;
+import io.*;
 /**
  * Created by Joachim on 21/10/2015.
  *
@@ -14,8 +17,7 @@ public class RunFastaReader {
      */
     public void run(String[] args) throws Exception {
         this.commandLine = new CommandLine();
-        this.fastaReader = this.commandLine.run(args);
-        fastaReader.print(commandLine.getHeaderLength(), commandLine.getSequenceLength(), commandLine.getLines());
+
     }
 
     public static void main(String[] args) throws Exception {

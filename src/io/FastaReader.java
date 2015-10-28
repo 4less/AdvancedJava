@@ -1,6 +1,10 @@
+package io;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader ;
+import java.util.Arrays;
+import java.util.Vector;
 
 /**
  * Created by Joachim on 20/10/2015.
@@ -83,7 +87,8 @@ public class FastaReader extends FastA {
      * @param lengthHeader maxlength header
      * @param lengthSequence count of chars before beginning a new line
      */
-    public void print(int lengthHeader, int lengthSequence, int[] lines) {
+    public String print(int lengthHeader, int lengthSequence, int[] lines) {
+        String result = "";
         if (!this.isEmpty()) {
             int begin = 0;
             int end = lengthSequence - 1;
@@ -97,27 +102,30 @@ public class FastaReader extends FastA {
                 String beginString = String.valueOf(begin+1);
                 String endString = String.valueOf(end+1);
                 int spaceBeginEnd = lengthSequence-beginString.length()-endString.length();
-                System.out.println(this.spaces(lengthHeader)+spacer+beginString+this.spaces(spaceBeginEnd)+endString);
+                result += this.spaces(lengthHeader)+spacer+beginString+this.spaces(spaceBeginEnd)+endString+"\n";
 
                 if(lines != null) {
                     for(int i = 0; i < lines.length; i++) {
                         int line = lines[i]-1;
                         if(line < this.getLength()) {
-                            System.out.print(formatHeader(lengthHeader, this.getHeader(line).toString()) + spacer);
-                            System.out.println(this.getSequence(line).substring(begin, end + 1));
+                            result += formatHeader(lengthHeader, this.getHeader(line).toString()) + spacer;
+                            result += this.getSequence(line).substring(begin, end + 1) + "\n";
                         }
                     }
                 } else {
                     for (int i = 0; i < this.getLength(); i++) {
-                        System.out.print(formatHeader(lengthHeader, this.getHeader(i).toString()) + spacer);
-                        System.out.println(this.getSequence(i).substring(begin, end + 1));
+                        result += formatHeader(lengthHeader, this.getHeader(i).toString()) + spacer;
+                        //result += this.spaces(lengthHeader - this.getHeader(i).toString().length());
+                        result += this.getSequence(i).substring(begin, end + 1) + "\n";
                     }
                 }
-                System.out.println();
+                result += "\n";
                 begin += lengthSequence;
                 end += lengthSequence;
             } while(end < max+lengthSequence);
         }
+
+        return result;
     }
 
     public String formatString(int lineLength, String line) {
@@ -156,5 +164,43 @@ public class FastaReader extends FastA {
     public void printEntry(int index, int lineLength) {
         System.out.println(formatHeader(lineLength, this.getHeader(index).toString()));
         System.out.println(formatString(lineLength, this.getSequence(index).toString()));
+    }
+
+    public static int[] getLines(String pattern) {
+        String[] cache = pattern.split(",");
+        Vector<Integer> inputLines = new Vector<Integer>();
+        for(int i = 0; i < cache.length; i++) {
+            String[] range = cache[i].split("-");
+            if (range.length == 2) {
+                int begin = Integer.parseInt(range[0]);
+                int end = Integer.parseInt(range[1]);
+                for (; begin <= end; begin++)
+                    inputLines.add(Integer.valueOf(begin));
+            } else
+                inputLines.add(Integer.parseInt(range[0]));
+
+        }
+        int j = 0;
+        int[] result = new int[inputLines.size()];
+        for (Integer value : inputLines) {
+            result[j++] = value.intValue();
+        }
+        Arrays.sort(result);
+        Vector<Integer> set = new Vector<Integer>();
+        int cur = result[0];
+        set.add(Integer.valueOf(cur));
+        for (int i = 1; i < result.length; i++) {
+            if(cur != result[i]) {
+                cur = result[i];
+                set.add(Integer.valueOf(cur));
+            }
+        }
+        result = new int[set.size()];
+        j = 0;
+        for (Integer value : set) {
+            result[j++] = value.intValue();
+        }
+        Arrays.sort(result);
+        return result;
     }
 }
