@@ -2,14 +2,11 @@ package io;
 import java.util.Vector;
 
 /**
- * Created by Joachim on 20/10/2015.
- * Class Nucleotide yields a char nucleotide out of a specified set SIGMA.
- * @param nucleotide char out of set SIGMA
- * @param SIGMA      String that has to be a regular expression representing an alphabet
+ *
  */
 public class Nucleotide {
     private char nucleotide;
-    private String SIGMA = "[ACGTU-]";
+    private String SIGMA = "[-AaCcGgTtUu]";
 
     /**
      * Constructor for class Nucleotide
@@ -22,12 +19,57 @@ public class Nucleotide {
             throw new Exception("No valid nucleotide. Check on Sigma for valid nucleotides.");
     }
 
+    public Nucleotide(char c, String sigma) throws Exception {
+        this.SIGMA = sigma;
+        this.nucleotide = c;
+        if(!isValid())
+            throw new Exception("No valid nucleotide. Check on Sigma for valid nucleotides.");
+    }
+
+    public void complement() {
+        switch (this.nucleotide) {
+            case 'A':   this.nucleotide = 'T';
+                        break;
+            case 'a':   this.nucleotide = 't';
+                        break;
+            case 'T':   this.nucleotide = 'A';
+                        break;
+            case 't':   this.nucleotide = 'a';
+                        break;
+            case 'G':   this.nucleotide = 'C';
+                        break;
+            case 'g':   this.nucleotide = 'c';
+                        break;
+            case 'C':   this.nucleotide = 'G';
+                        break;
+            case 'c':   this.nucleotide = 'g';
+                        break;
+        }
+    }
+
+    public void toUpperCase() {
+        this.nucleotide = Character.toUpperCase(this.nucleotide);
+    }
+
+    public void toLowerCase() {
+        this.nucleotide = Character.toLowerCase(this.nucleotide);
+    }
+
     /**
      * Is nucleotide an element of  the set SIGMA
      * @return true, false
      */
     public boolean isValid() {
         return String.valueOf(this.nucleotide).matches(SIGMA);
+    }
+
+    public void toRNA() {
+        switch (nucleotide) {
+            case 'T':   this.nucleotide = 'U';
+                        break;
+            case 't':   this.nucleotide = 'u';
+                        break;
+        }
     }
 
     /**
@@ -68,5 +110,15 @@ public class Nucleotide {
      */
     public String toString() {
         return String.valueOf(this.nucleotide);
+    }
+
+    /**
+     * Am I Guanine or Cytosine?
+     * @return
+     */
+    public boolean isGC() {
+        if(String.valueOf(this.nucleotide).matches("[GgCc]"))
+            return true;
+        return false;
     }
 }

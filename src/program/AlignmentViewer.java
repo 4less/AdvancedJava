@@ -1,16 +1,11 @@
 package program;
 import io.*;
-import commandline.*;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -22,7 +17,7 @@ import java.util.List;
  * Created by Joachim on 28/10/2015.
  */
 public class AlignmentViewer extends Application {
-    CommandLine commandLine;
+    //CommandLine commandLine;
     FastaReader fastaReader;
 
     /**
@@ -30,7 +25,7 @@ public class AlignmentViewer extends Application {
      * @throws Exception
      */
     public void addOptions() throws Exception {
-        this.commandLine.addOption("i","input",1,true,Type.FILE,"Fasta file to read in.","..*\\.(fasta|fa)");
+        //this.commandLine.addOption("i","input",1,true,Type.FILE,"Fasta file to read in.","..*\\.(fasta|fa)");
     }
 
     @Override
@@ -41,16 +36,16 @@ public class AlignmentViewer extends Application {
         String[] args = new String[param.size()];
         for(int i = 0; i < param.size(); i++)
             args[i] = param.get(i);
-        this.commandLine = new CommandLine();
+        //this.commandLine = new CommandLine();
         this.addOptions();
-        this.commandLine.parseArgs(args);
+        //this.commandLine.parseArgs(args);
 
         // if there is an input filepath, load fasta file
-        if(this.commandLine.isOption("i")) {
-            String filePath = this.commandLine.getOption("i").getFile();
-            this.fastaReader = new FastaReader(filePath);
-        }
-        System.err.println("start()");
+        //if(this.commandLine.isOption("i")) {
+            //String filePath = this.commandLine.getOption("i").getFile();
+            this.fastaReader = new FastaReader("path");
+        //}
+        //System.err.println("start()");
 
         // create new root pane and boxes
         BorderPane root = new BorderPane();
@@ -141,6 +136,6 @@ public class AlignmentViewer extends Application {
 
     public static void main(String[] args) {
         // Pass arguments to application
-        Application.launch(args);
+        //Application.launch(args);
     }
 }

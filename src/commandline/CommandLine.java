@@ -1,37 +1,41 @@
+/*
 package commandline;
 import java.util.HashMap;
 import java.util.Vector;
 
 
+*/
 /**
  * Created by Joachim on 21/102015.
- */
+ *//*
+
 public class CommandLine {
     private String description = "CommandLine Test";
-    private HashMap<String, Option> map;
+    private HashMap<String, OptionBase> map;
     private Vector<String> keyList;
 
 
 
-    public CommandLine() {
-        this.map = new HashMap<String, Option>();
+    public CommandLine() throws Exception {
+        this.map = new HashMap<String, OptionBase>();
         this.keyList = new Vector<String>();
+        this.addOption("h","help",0,true,Type.HELP,"Prints the Help for this program");
     }
 
 
 
-    public HashMap<String, Option> getMap() {
+    public HashMap<String, OptionBase> getMap() {
         return map;
     }
 
     public void addOption(String shortFlag, String longFlag, int args, boolean isRequired, Type type, String description, String regex) throws Exception {
-        Option op = new Option(shortFlag, longFlag, args, isRequired, type, description, regex);
+        OptionBase op = new OptionBase(shortFlag, longFlag, args, isRequired, type, description, regex);
         this.map.put(op.getShortFlag(), op);
         this.map.put(op.getLongFlag(), op);
     }
 
     public void addOption(String shortFlag, String longFlag, int args, boolean isRequired, Type type, String description) throws Exception {
-        Option op = new Option(shortFlag, longFlag, args, isRequired, type, description);
+        OptionBase op = new OptionBase(shortFlag, longFlag, args, isRequired, type, description);
         this.map.put(op.getShortFlag(), op);
         this.map.put(op.getLongFlag(), op);
     }
@@ -44,13 +48,52 @@ public class CommandLine {
         return this.map.containsKey(key);
     }
 
-    public Option getOption(String key) {
+    public OptionBase getOption(String key) {
         return this.map.get(key);
+    }
+
+    public void parser(String[] args) {
+        String argument;
+
+        for (int i = 0; i < args.length; i++) {
+            argument = args[i];
+            // Command
+            if(argument.matches(".*")) {
+                if(isCommand(argument)) {
+                    
+                }
+            }
+            // Single dash flag.
+            if(argument.matches("^-[^-].*")) {
+                if(isOption(argument)) {
+
+                }
+            }
+            // double dash flag.
+            if(argument.matches("^--[^-].*")) {
+                if(isOperand(argument)) {
+
+                }
+            }
+            // Operand
+            else {
+
+            }
+
+        }
+    }
+
+    public boolean isOperand(String operand) {
+        return true;
+    }
+
+    public boolean isCommand(String operand) {
+        return true;
     }
 
     public void parseArgs(String[] args) throws Exception {
         String key;
-        Option option;
+        OptionBase option;
         for (int i = 0; i < args.length; i++) {
             if(args[i].matches("^-[^-].*")) {
                 if(this.hasOption(args[i].substring(1))) {
@@ -123,7 +166,7 @@ public class CommandLine {
     public void printHelp() {
         System.out.println(this.description);
         for(String key : this.map.keySet()) {
-            Option option = this.map.get(key);
+            OptionBase option = this.map.get(key);
             System.out.println("--" + option.getLongFlag() + ", " + "-" + option.getShortFlag() + ":");
             System.out.println(this.formatString(80, "    ", option.getDescription()));
         }
@@ -157,3 +200,4 @@ public class CommandLine {
         commandLine.printHelp();
     }
 }
+*/

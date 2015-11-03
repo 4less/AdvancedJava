@@ -1,0 +1,8 @@
+JavaBeans arose due to the necessity to easily instantiate GUI-Classes.
+A Java Bean is a reusable software component that can be manipulated visually in a builder tool. (cite http://openbook.rheinwerk-verlag.de/javainsel/javainsel_10_003.html#dodtpf9755ee2-1779-406b-b8e4-d8c364a2bd33)
+JavaBeans have several attributes:
+Introspection, which means that that the bean can both be read from outside as well as gathering information
+about what is accessing the bean.
+Properties save the state of the object in a way that makes it possible to access and customize them.
+Components can trigger events, which pass on Information like changes of states.
+JavaBeans are also serializable which lets it save and recover its own state.

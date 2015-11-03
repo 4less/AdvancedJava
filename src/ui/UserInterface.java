@@ -1,4 +1,4 @@
-package program;
+package ui;
 import io.*;
 import commandline.*;
 import javafx.application.Application;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * Created by Joachim on 28/10/2015.
  */
 public class UserInterface extends Application {
-    CommandLine commandLine;
+    //CommandLine commandLine;
     FastaReader fastaReader;
 
     @Override

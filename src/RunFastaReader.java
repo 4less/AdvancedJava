@@ -8,7 +8,7 @@ import io.*;
  */
 public class RunFastaReader {
     private FastaReader fastaReader;
-    private CommandLine commandLine;
+    //private CommandLine commandLine;
 
     /**
      * runs the command line and FastaREader
@@ -16,12 +16,12 @@ public class RunFastaReader {
      * @throws Exception
      */
     public void run(String[] args) throws Exception {
-        this.commandLine = new CommandLine();
+        //this.commandLine = new CommandLine();
 
     }
 
     public static void main(String[] args) throws Exception {
-        RunFastaReader runFastaReader = new RunFastaReader();
-        runFastaReader.run(args);
+        //RunFastaReader runFastaReader = new RunFastaReader();
+        //runFastaReader.run(args);
     }
 }
