@@ -5,7 +5,6 @@ import java.util.Vector;
 public class Sequence {
     private String header;
     private Vector<Nucleotide> sequence;
-    private int length;
 
     /**
      *
@@ -33,7 +32,6 @@ public class Sequence {
      */
     public void addElement(Nucleotide n) {
         this.sequence.addElement(n);
-        this.length++;
     }
 
     /**
@@ -45,8 +43,8 @@ public class Sequence {
     public String substring(int begin, int end) {
         String result = "";
         if (begin < end) {
-            if(this.length < end)
-                end = this.length;
+            if(this.getLength() < end)
+                end = this.getLength();
             for (int i = begin; i < end; i++)
                 result = result + sequence.get(i);
             return result;
@@ -60,7 +58,7 @@ public class Sequence {
      * @return
      */
     public String toString() {
-        return this.substring(0, this.length);
+        return this.substring(0, this.getLength());
     }
 
     /**
@@ -84,19 +82,25 @@ public class Sequence {
      * @return int length of sequence
      */
     public int getLength() {
-        return length;
+        return sequence.size();
     }
 
     public void setSequence(String sequence) {
-        int length = sequence.length();
         this.sequence.clear();
-        for(int i = 0; i < length; i++)
+        for (char c : sequence.toCharArray()) {
+            try {
+                this.sequence.add(new Nucleotide(c));
+            } catch (Exception e) {
+
+            }
+        }
+
+/*        for(int i = 0; i < length; i++)
             try {
                 this.sequence.add(new Nucleotide(sequence.charAt(i)));
                 length++;
             } catch (Exception e) {
-            }
-        this.length = this.sequence.size();
+            }*/
     }
 
     public Sequence toUpperCase() {
@@ -126,11 +130,11 @@ public class Sequence {
     }
 
     public double gcContent() {
-        if(this.length == 0) return 0.0;
+        if(this.getLength() == 0) return 0.0;
         int gcCount = 0;
         for (Nucleotide n : this.sequence)
             if (n.isGC()) gcCount++;
-        return (double)gcCount/(double)this.length;
+        return (double)gcCount/(double)this.getLength();
     }
 
     public Sequence toRNA() {
@@ -143,14 +147,16 @@ public class Sequence {
     }
 
     public static String toString(String s, int line) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         if(!s.isEmpty()) {
             int wraps = s.length() / line;
-            for (int i = 0; i < wraps; i++)
-                result += s.substring(i * line, i * line + line) + "\n";
-            result += s.substring(wraps * line, s.length());
+            for (int i = 0; i < wraps; i++) {
+                result.append(s.substring(i * line, i * line + line));
+                result.append("\n");
+            }
+            result.append(s.substring(wraps * line, s.length()));
         }
-        return result;
+        return result.toString();
     }
 
 }

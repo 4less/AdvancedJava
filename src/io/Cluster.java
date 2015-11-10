@@ -1,6 +1,7 @@
 package io;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Joachim on 04/11/2015.
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 public class Cluster {
     private String name;
     private ClusterSequence representative;
-    private ArrayList<ClusterSequence> sequences = new ArrayList<ClusterSequence>();
+    private List<ClusterSequence> sequences = new ArrayList<ClusterSequence>();
     private int length = 0;
 
     public void addSequence(ClusterSequence sequence) {
@@ -36,5 +37,13 @@ public class Cluster {
 
     public int getLength() {
         return length;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<ClusterSequence> getSequences() {
+        return sequences;
     }
 }

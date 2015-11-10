@@ -1,17 +1,23 @@
 package clusteringviewer;
 
-import io.FastA;
+import io.Cluster;
+import io.ClusterSequence;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
+import java.util.stream.Collectors;
 
 /**
  * Created by Joachim on 04/11/2015.
@@ -27,13 +33,16 @@ public class View {
     private MenuItem open = new MenuItem("Open");
     private MenuItem exit = new MenuItem("Exit");
     private FileChooser fileChooser = new FileChooser();
+    private TilePane labelBox = new TilePane();
 
-    private HBox labelBox = new HBox();
-    private Label fastaLabel = new Label("Fasta File: No file selected");
-    private Label clsrLabel = new Label("Clsr File: No file selected");
 
-    private TreeTableView treeTableView = new TreeTableView();
-    private ArrayList<TreeItem> treeItems = new ArrayList<TreeItem>();
+    private Label fastaLabel = new Label("No Fasta file.");
+    private Label clsrLabel = new Label("No Clsr file.");
+
+    private StringProperty fastaPath = new SimpleStringProperty();
+    private StringProperty clsrPath = new SimpleStringProperty();
+
+    private TreeTableView<ClusterTreeItem> treeTableView = new TreeTableView<>();
 
     public View() {
         this.setMenuBar();
@@ -43,15 +52,24 @@ public class View {
 
         // add elements to root
         this.root.getChildren().addAll(this.menuBar, this.labelBox, this.treeTableView);
+        this.root.setFillWidth(true);
 
         // Init Scene
         this.scene = new Scene(root, 500, 500);
+        this.treeTableView.setPrefHeight(this.scene.getHeight()-this.labelBox.getHeight()-this.menuBar.getHeight());
+
+        //String css = "style.css";
+        //scene.getStylesheets().add(css);
     }
 
     public void show(Stage stage) {
         stage.setTitle(this.title);
         stage.setScene(this.scene);
         stage.show();
+    }
+
+    public ObservableList<TreeTableColumn<ClusterTreeItem, ?>> getColumns() {
+        return this.treeTableView.getColumns();
     }
 
     public void setFileChooser() {
@@ -61,9 +79,13 @@ public class View {
     }
 
     public void setLabelBar() {
-        this.labelBox.setSpacing(20);
-        this.labelBox.setPadding(new Insets(2,15,2,15));
+        this.labelBox.setPrefWidth(Double.MAX_VALUE);
+        this.labelBox.setAlignment(Pos.CENTER);
+        this.labelBox.setHgap(50);
+        this.labelBox.setPadding(new Insets(2, 15, 2, 15));
         this.labelBox.getChildren().addAll(fastaLabel, clsrLabel);
+        this.fastaLabel.setTooltip(new Tooltip());
+        this.clsrLabel.setTooltip(new Tooltip());
     }
 
     public void setMenuBar() {
@@ -72,23 +94,51 @@ public class View {
     }
 
     public void setTreeTableView() {
-        this.treeTableView.setMaxHeight(Double.MAX_VALUE);
-        TreeTableColumn<String, String> sequenceId =
-                new TreeTableColumn<String, String>("SequenceId");
-        TreeTableColumn<String, String> strain =
-                new TreeTableColumn<String, String>("Strain");
-        TreeTableColumn<String, String> sequenceLength =
-                new TreeTableColumn<String, String>("Sequence Length");
-        TreeTableColumn<String, String> sequenceSimilarity =
-                new TreeTableColumn<String, String>("Sequence Similarity");
+        TreeTableColumn<ClusterTreeItem, String> sequenceId =
+                new TreeTableColumn<>("SequenceId");
+        TreeTableColumn<ClusterTreeItem, String> strain =
+                new TreeTableColumn<>("Strain");
+        TreeTableColumn<ClusterTreeItem, Integer> sequenceLength =
+                new TreeTableColumn<>("Sequence Length");
+        TreeTableColumn<ClusterTreeItem, String> sequenceSimilarity =
+                new TreeTableColumn<>("Sequence Similarity");
+
+        sequenceId.setCellValueFactory(new TreeItemPropertyValueFactory<ClusterTreeItem, String>("sequenceId"));
+        strain.setCellValueFactory(new TreeItemPropertyValueFactory<ClusterTreeItem, String>("sequence"));
+        sequenceLength.setCellValueFactory(new TreeItemPropertyValueFactory<ClusterTreeItem, Integer>("length"));
+        sequenceSimilarity.setCellValueFactory(new TreeItemPropertyValueFactory<ClusterTreeItem, String>("similarity"));
+
+        this.treeTableView.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
+
+        for (TreeTableColumn column : this.treeTableView.getColumns()) {
+            if (column.getText().equals("Strain")) {
+            }
+        }
 
         sequenceId.setPrefWidth(100);
         strain.setPrefWidth(300);
         sequenceLength.setPrefWidth(50);
         sequenceSimilarity.setPrefWidth(50);
 
+
+        this.treeTableView.
+
         this.treeTableView.getColumns().addAll(
                 sequenceId, strain, sequenceLength, sequenceSimilarity);
+        this.treeTableView.setShowRoot(false);
+    }
+
+    public void setData(Vector<Cluster> cVector) {
+        TreeItem<ClusterTreeItem> rootItem = new TreeItem<>(new ClusterTreeItem(cVector));
+        for(ClusterTreeItem cti : rootItem.getValue().children) {
+            TreeItem<ClusterTreeItem> item = new TreeItem<>(cti);
+            for(ClusterTreeItem cti2 : cti.children) {
+                item.getChildren().add(new TreeItem<>(cti2));
+            }
+            rootItem.getChildren().add(item);
+        }
+        treeTableView.setRoot(rootItem);
+        treeTableView.refresh();
     }
 
     public TreeTableView getTreeTableView() {
@@ -101,16 +151,6 @@ public class View {
 
     public MenuItem getOpen() {
         return open;
-    }
-
-    public void setFastaPath(String fastaPath, String fastaFullPath) {
-        this.fastaLabel.setText("Fasta file: " + fastaPath);
-        this.fastaLabel.setTooltip(new Tooltip(fastaFullPath));
-    }
-
-    public void setClsrPath(String clsrPath, String clsrFullPath) {
-        this.clsrLabel.setText("Clsr File: " + clsrPath);
-        this.clsrLabel.setTooltip(new Tooltip(clsrFullPath));
     }
 
     public Label getClsrLabel() {
@@ -143,8 +183,60 @@ public class View {
         dialogStage.show();
     }
 
-    public void addTreeRoots(String cluster) {
-        TreeItem<String> roots = new TreeItem<String>(cluster);
-        //this.treeTableView.get
+    public Scene getScene() {
+        return scene;
+    }
+
+
+    /**
+     * Inner class to represent the cluster sequences as a tree
+     * to fill the table
+     */
+    public class ClusterTreeItem {
+        String sequenceId;
+        String sequence;
+        Integer length;
+        String similarity;
+        List<ClusterTreeItem> children;
+
+        public ClusterTreeItem(Vector<Cluster> cVector) {
+            children = cVector.stream().map(ClusterTreeItem::new).collect(Collectors.toList());
+            sequenceId = "";
+            sequence = "";
+            length = Integer.MIN_VALUE;
+            similarity = "";
+        }
+
+        public ClusterTreeItem(Cluster cluster) {
+            children = cluster.getSequences().stream().map(ClusterTreeItem::new).collect(Collectors.toList());
+            sequenceId = cluster.getRepresentative().getHeader();
+            sequence = cluster.getRepresentative().getSequenceString();
+            length = cluster.getRepresentative().getLength();
+            similarity = cluster.getRepresentative().getSimilarity();
+        }
+
+        public ClusterTreeItem(ClusterSequence cSequence) {
+            children = Collections.emptyList();
+            sequenceId = cSequence.getHeader();
+            sequence = cSequence.getSequenceString();
+            similarity = cSequence.getSimilarity();
+            length = cSequence.getLength();
+        }
+
+        public String getSequenceId() {
+            return sequenceId;
+        }
+
+        public String getSequence() {
+            return sequence;
+        }
+
+        public Integer getLength() {
+            return length;
+        }
+
+        public String getSimilarity() {
+            return similarity;
+        }
     }
 }

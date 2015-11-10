@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader ;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Vector;
 
 /**
@@ -12,8 +13,29 @@ import java.util.Vector;
  * Class FastaReader extends class FastA and implements methods to read and print Fasta Files
  */
 public class FastaReader extends FastA {
+    HashMap<String, Sequence> sequenceMap;
+
     public FastaReader(BufferedReader fastaReader) throws Exception {
         this.read(fastaReader);
+    }
+
+    public void clearSequenceMap() {
+        this.sequenceMap = null;
+    }
+
+    public void initSequenceMap() {
+        sequenceMap = new HashMap<>();
+        for (Sequence sequence : this)
+            this.sequenceMap.put(truncateHeader(sequence.getHeader()), sequence);
+    }
+
+    public Sequence getSequence(String header) {
+        return this.sequenceMap.get(header);
+    }
+
+    public static String truncateHeader(String header) {
+        String result = header.substring(1,header.indexOf("."));
+        return result;
     }
 
     /**
@@ -24,6 +46,8 @@ public class FastaReader extends FastA {
     public FastaReader(String filePath) throws Exception {
         this.read(filePath);
     }
+
+    public FastaReader() {};
 
     /**
      * Reads in FastA file by String filePath
@@ -42,22 +66,22 @@ public class FastaReader extends FastA {
     public void read(BufferedReader fastaReader) throws Exception {
         String line = null;
         String header = null;
-        String sequence = null;
+        StringBuffer sequence = new StringBuffer();
+
 
         while((line = fastaReader.readLine()) != null) {
             if (line.startsWith(">")) {
                 if (header != null && sequence != null) {
-                    this.addElement(new Sequence(sequence, header));
-                    header = null;
-                    sequence = null;
+                    this.addElement(new Sequence(sequence.toString(), header));
+                    sequence = new StringBuffer();
                 }
                 header = line.trim();
             } else {
-                if (sequence == null)
-                    sequence = line.trim();
-                else
-                    sequence += line.trim();
+                sequence.append(line);
             }
+        }
+        if (header != null && sequence != null) {
+            this.addElement(new Sequence(sequence.toString(), header));
         }
     }
 
@@ -66,7 +90,8 @@ public class FastaReader extends FastA {
      * and max length of 60 for the sequence before breaking the line.
      */
     public void print() {
-        System.out.println(this.print(20, 60, null, true, true, true));
+        int[] lines =  {1,2,3,4,5,6};
+        System.out.println(this.print(20, 140, lines, true, true, true));
     }
 
     /**
@@ -91,7 +116,8 @@ public class FastaReader extends FastA {
         // makes no sense to display numbers when sequences are disabled
         if(!sequence)
             numbers = false;
-        String result = "";
+        StringBuilder result = new StringBuilder();
+        //String result = "";
         if (!this.isEmpty()) {
             int begin = 0;
             int end = lengthSequence - 1;
@@ -101,51 +127,55 @@ public class FastaReader extends FastA {
 
             String spacer = "     ";
 
+            int iteration = 0;
+
             do{
+                System.out.println(iteration);
                 if(numbers) {
                     String beginString = String.valueOf(begin + 1);
                     String endString = String.valueOf(end + 1);
                     int spaceBeginEnd = lengthSequence - beginString.length() - endString.length();
                     if(header)
-                        result = result + this.spaces(lengthHeader) + spacer;
-                    result = result + beginString + this.spaces(spaceBeginEnd) + endString + "\n";
+                        result.append(this.spaces(lengthHeader) + spacer);
+                    result.append(beginString + this.spaces(spaceBeginEnd) + endString + "\n");
                 }
                 if(lines != null) {
                     for(int i = 0; i < lines.length; i++) {
                         int line = lines[i]-1;
                         if(line < this.getLength()) {
                             if(header)
-                                result += formatHeader(lengthHeader, this.getHeader(line));
+                                result.append(formatHeader(lengthHeader, this.getHeader(line)));
                             if(sequence) {
                                 if(header)
-                                    result = result + spacer;
-                                result = result + this.getSequence(line).substring(begin, end + 1) + "\n";
+                                    result.append(spacer);
+                                result.append(this.getSequence(line).substring(begin, end + 1) + "\n");
                             }
                         }
                     }
                 } else {
                     for (int i = 0; i < this.getLength(); i++) {
                         if(header) {
-                            result = result + (formatHeader(lengthHeader, this.getHeader(i)));
+                            result.append((formatHeader(lengthHeader, this.getHeader(i))));
                             if (!sequence)
-                                result = result + "\n";
+                                result.append("\n");
                         }
                         if(sequence) {
                             if(header)
-                                result = result + spacer;
-                            result = result + this.getSequence(i).substring(begin, end + 1) + "\n";
+                                result.append(spacer);
+                            result.append(this.getSequence(i).substring(begin, end + 1) + "\n");
                         }
                     }
                 }
                 if(!sequence)
                     break;
-                result += "\n";
+                result.append("\n");
                 begin += lengthSequence;
                 end += lengthSequence;
+                iteration++;
             } while(end < max+lengthSequence);
         }
 
-        return result;
+        return result.toString();
     }
 
     /**

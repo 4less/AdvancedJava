@@ -9,7 +9,15 @@ import java.util.HashMap;
  * Created by Joachim on 05/11/2015.
  */
 public class ClsrReader extends Clsr {
+    FastaReader fReader;
+
+    public void setfReader(FastaReader fReader) {
+        this.fReader = fReader;
+        fReader.initSequenceMap();
+    }
+
     public void read(BufferedReader clusterReader) throws Exception {
+        boolean isFReader = fReader != null;
         String line = null;
         String header = null;
         String nt;
@@ -25,21 +33,32 @@ public class ClsrReader extends Clsr {
                 this.addCluster(cluster);
             } else {
                 String[] split = line.split("(\\d+\t)|( at )|(, >)|( )");
-                System.out.println();
                 if (split.length == 4) {
                     nt = split[1];
                     if(split[2].matches(".*\\.")) {
                         sequence = split[2].substring(0, split[2].indexOf("."));
                     }
                     similarity = split[3].trim();
-                    if (similarity.equals("*"))
-                        cluster.setRepresentative(new ClusterSequence(sequence, similarity));
+                    if (similarity.equals("*")) {
+                        Sequence seq = this.fReader.getSequence(sequence);
+                        assert cluster != null;
+                        if (isFReader) {
+                            cluster.setRepresentative(new ClusterSequence(sequence, seq, similarity));
+                        } else {
+                            cluster.setRepresentative(new ClusterSequence(sequence, similarity));
+                        }
+                    }
                     else {
                         similarity = similarity.split("\\+/")[1];
                         similarity = similarity.substring(0, similarity.indexOf("%"));
                         if (similarity.matches("\\d+(\\.\\d+)?") && cluster != null) {
-                            System.out.println(sequence + " : " + similarity);
-                            ClusterSequence toAdd = new ClusterSequence(sequence, similarity);
+                            Sequence seq = this.fReader.getSequence(sequence);
+                            ClusterSequence toAdd;
+                            if (isFReader) {
+                                toAdd = new ClusterSequence(sequence, seq, similarity);
+                            } else {
+                                toAdd = new ClusterSequence(sequence, similarity);
+                            }
                             cluster.addSequence(toAdd);
                         }
                     }

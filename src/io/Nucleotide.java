@@ -1,4 +1,5 @@
 package io;
+import java.util.Arrays;
 import java.util.Vector;
 
 /**
@@ -6,7 +7,9 @@ import java.util.Vector;
  */
 public class Nucleotide {
     private char nucleotide;
-    private String SIGMA = "[-AaCcGgTtUu]";
+
+    private byte[] SIGMA = {'-','A','C','G','T','U','a','c','g','t','u'};
+
 
     /**
      * Constructor for class Nucleotide
@@ -14,13 +17,6 @@ public class Nucleotide {
      * @throws Exception if c is not element alphabet SIGMA
      */
     public Nucleotide(char c) throws Exception {
-        this.nucleotide = c;
-        if(!isValid())
-            throw new Exception("No valid nucleotide. Check on Sigma for valid nucleotides.");
-    }
-
-    public Nucleotide(char c, String sigma) throws Exception {
-        this.SIGMA = sigma;
         this.nucleotide = c;
         if(!isValid())
             throw new Exception("No valid nucleotide. Check on Sigma for valid nucleotides.");
@@ -56,12 +52,13 @@ public class Nucleotide {
     }
 
     /**
-     * Is nucleotide an element of  the set SIGMA
+     * Is nucleotide an element of  the set io/Nucleotide.java:7SIGMA
      * @return true, false
      */
     public boolean isValid() {
-        return String.valueOf(this.nucleotide).matches(SIGMA);
+        return 0 <= Arrays.binarySearch(this.SIGMA, (byte) this.nucleotide);
     }
+
 
     public void toRNA() {
         switch (nucleotide) {
@@ -84,25 +81,10 @@ public class Nucleotide {
      * Getter for SIGMA
      * @return the regex SIGMA (String) representing an alphabet
      */
-    public String getSIGMA() {
+    public byte[] getSIGMA() {
         return SIGMA;
     }
 
-    /**
-     * Print SIGMA to the console.
-     */
-    public void printSigma() {
-        System.out.print("Sigma = {");
-        if(!SIGMA.isEmpty() && SIGMA.length() != 0) {
-            String sigma = SIGMA.replaceAll("[\\[\\]]", "");
-            for(int i = 0; i < sigma.length(); i++) {
-                System.out.print(sigma.charAt(i));
-                if(i < sigma.length()-1)
-                    System.out.print(", ");
-            }
-        }
-        System.out.println("}");
-    }
 
     /**
      * Returns char nucleotide as a String
@@ -117,7 +99,8 @@ public class Nucleotide {
      * @return
      */
     public boolean isGC() {
-        if(String.valueOf(this.nucleotide).matches("[GgCc]"))
+        byte[] gc = {'C','G','g','c'};
+        if(Arrays.binarySearch(gc, (byte) this.nucleotide) >= 0)
             return true;
         return false;
     }

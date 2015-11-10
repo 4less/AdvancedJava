@@ -12,8 +12,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        StageManager.getInstance().setPrimaryStage(primaryStage);
         // initialize new model
-        Model model = new Model(primaryStage);
+        Model model = new Model();
 
         // Call controller
         Controller controller = new Controller(model);
