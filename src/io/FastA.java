@@ -1,5 +1,8 @@
 package io;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -12,8 +15,9 @@ import java.io.FileReader;
 /**
  *
  */
-public class FastA implements Iterable<Sequence> {
-    private List<Sequence> sequences = new ArrayList<Sequence>();
+public class FastA implements Iterable<Sequence>{
+    private ObservableList<Sequence> sequences = FXCollections.observableArrayList(new ArrayList<>());
+    private NucleotideType type;
 
     /**
      * add Element to sequence and also store corresponding header
@@ -95,6 +99,25 @@ public class FastA implements Iterable<Sequence> {
             return this.sequences.get(index);
         }
         return null;
+    }
+
+    public NucleotideType getType() {
+        return type;
+    }
+
+    public void setType(NucleotideType type) {
+        this.type = type;
+    }
+
+    public void convertTo(NucleotideType type) throws Exception {
+        setType(type);
+        for (Sequence s : getSequences()) {
+            s.convert(type);
+        }
+    }
+
+    public ObservableList<Sequence> getSequences() {
+        return this.sequences;
     }
 
     @Override

@@ -5,11 +5,9 @@ import java.util.Vector;
 /**
  *
  */
-public class Nucleotide {
+public abstract class Nucleotide  {
     private char nucleotide;
-
-    private byte[] SIGMA = {'-','A','C','G','T','U','a','c','g','t','u'};
-
+    private byte[] sigma;
 
     /**
      * Constructor for class Nucleotide
@@ -18,20 +16,14 @@ public class Nucleotide {
      */
     public Nucleotide(char c) throws Exception {
         this.nucleotide = c;
-        if(!isValid())
-            throw new Exception("No valid nucleotide. Check on Sigma for valid nucleotides.");
+    }
+
+    protected void setSigma(byte[] sigma) {
+        this.sigma = sigma;
     }
 
     public void complement() {
         switch (this.nucleotide) {
-            case 'A':   this.nucleotide = 'T';
-                        break;
-            case 'a':   this.nucleotide = 't';
-                        break;
-            case 'T':   this.nucleotide = 'A';
-                        break;
-            case 't':   this.nucleotide = 'a';
-                        break;
             case 'G':   this.nucleotide = 'C';
                         break;
             case 'g':   this.nucleotide = 'c';
@@ -40,7 +32,12 @@ public class Nucleotide {
                         break;
             case 'c':   this.nucleotide = 'g';
                         break;
+
         }
+    }
+
+    protected void setNucleotide(char c) {
+        this.nucleotide = c;
     }
 
     public void toUpperCase() {
@@ -56,18 +53,9 @@ public class Nucleotide {
      * @return true, false
      */
     public boolean isValid() {
-        return 0 <= Arrays.binarySearch(this.SIGMA, (byte) this.nucleotide);
+        return 0 <= Arrays.binarySearch(this.sigma, (byte) this.nucleotide);
     }
 
-
-    public void toRNA() {
-        switch (nucleotide) {
-            case 'T':   this.nucleotide = 'U';
-                        break;
-            case 't':   this.nucleotide = 'u';
-                        break;
-        }
-    }
 
     /**
      * Getter for Nucleotide
@@ -76,15 +64,6 @@ public class Nucleotide {
     public char getNucleotide() {
         return nucleotide;
     }
-
-    /**
-     * Getter for SIGMA
-     * @return the regex SIGMA (String) representing an alphabet
-     */
-    public byte[] getSIGMA() {
-        return SIGMA;
-    }
-
 
     /**
      * Returns char nucleotide as a String
@@ -100,8 +79,6 @@ public class Nucleotide {
      */
     public boolean isGC() {
         byte[] gc = {'C','G','g','c'};
-        if(Arrays.binarySearch(gc, (byte) this.nucleotide) >= 0)
-            return true;
-        return false;
+        return (Arrays.binarySearch(gc, (byte) this.nucleotide) >= 0);
     }
 }

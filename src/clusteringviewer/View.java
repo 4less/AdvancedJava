@@ -120,12 +120,9 @@ public class View {
         sequenceLength.setPrefWidth(50);
         sequenceSimilarity.setPrefWidth(50);
 
-
-        this.treeTableView.
-
         this.treeTableView.getColumns().addAll(
                 sequenceId, strain, sequenceLength, sequenceSimilarity);
-        this.treeTableView.setShowRoot(false);
+        treeTableView.setShowRoot(false);
     }
 
     public void setData(Vector<Cluster> cVector) {
@@ -186,7 +183,6 @@ public class View {
     public Scene getScene() {
         return scene;
     }
-
 
     /**
      * Inner class to represent the cluster sequences as a tree

@@ -1,8 +1,6 @@
 package io;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader ;
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
@@ -16,6 +14,12 @@ public class FastaReader extends FastA {
     HashMap<String, Sequence> sequenceMap;
 
     public FastaReader(BufferedReader fastaReader) throws Exception {
+        setType(NucleotideType.DNA);
+        this.read(fastaReader);
+    }
+
+    public FastaReader(BufferedReader fastaReader, NucleotideType type) throws Exception {
+        setType(type);
         this.read(fastaReader);
     }
 
@@ -34,7 +38,7 @@ public class FastaReader extends FastA {
     }
 
     public static String truncateHeader(String header) {
-        String result = header.substring(1,header.indexOf("."));
+        String result = header.substring(0,header.indexOf("."));
         return result;
     }
 
@@ -64,7 +68,7 @@ public class FastaReader extends FastA {
      * @throws Exception
      */
     public void read(BufferedReader fastaReader) throws Exception {
-        String line = null;
+        String line;
         String header = null;
         StringBuffer sequence = new StringBuffer();
 
@@ -72,17 +76,25 @@ public class FastaReader extends FastA {
         while((line = fastaReader.readLine()) != null) {
             if (line.startsWith(">")) {
                 if (header != null && sequence != null) {
-                    this.addElement(new Sequence(sequence.toString(), header));
+                    this.addElement(new Sequence(sequence.toString(), header, getType()));
                     sequence = new StringBuffer();
                 }
-                header = line.trim();
+                header = line.trim().substring(1);
             } else {
                 sequence.append(line);
             }
         }
         if (header != null && sequence != null) {
-            this.addElement(new Sequence(sequence.toString(), header));
+            this.addElement(new Sequence(sequence.toString(), header, getType()));
         }
+    }
+
+    public void write(BufferedWriter fastaFile) throws IOException {
+        for (Sequence sequence : getSequences()) {
+            fastaFile.write(">" + sequence.getHeader() + "\n");
+            fastaFile.write(sequence.toString() + "\n");
+        }
+        fastaFile.close();
     }
 
     /**
@@ -264,5 +276,15 @@ public class FastaReader extends FastA {
         }
         Arrays.sort(result);
         return result;
+    }
+
+    public HashMap<String, Sequence> getSequenceMap() {
+        return sequenceMap;
+    }
+
+    public static void main(String[] args) throws Exception {
+        FastaReader fReader = new FastaReader();
+        fReader.read(new BufferedReader(new FileReader(new File(".fa"))));
+        fReader.print();
     }
 }

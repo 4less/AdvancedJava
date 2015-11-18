@@ -120,7 +120,15 @@ public class DNAManipulator extends Application {
         this.buttonMap.get("filter").setOnAction(value -> this.modify(Function.identity()));
         this.buttonMap.get("upper case").setOnAction(value -> this.modify(Sequence::toUpperCase));
         this.buttonMap.get("lower case").setOnAction(value -> this.modify(Sequence::toLowerCase));
-        this.buttonMap.get("to RNA").setOnAction(value -> this.modify(Sequence::toRNA));
+        this.buttonMap.get("to RNA").setOnAction(value -> {
+            this.modify((sequence) -> {
+                try {
+                    return sequence.toRNA();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            return null;});
+        });
         this.buttonMap.get("reverse").setOnAction(value -> this.modify(Sequence::reverse));
         this.buttonMap.get("complementary").setOnAction(value -> this.modify(Sequence::complement));
         this.buttonMap.get("reverse complementary").setOnAction(value -> this.modify(Sequence::reverseComplementary));

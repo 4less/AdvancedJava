@@ -1,10 +1,14 @@
 package io;
 
+import javafx.beans.property.*;
+
 import java.util.Vector;
 
-public class Sequence {
-    private String header;
+public class Sequence  {
+    private StringProperty header = new SimpleStringProperty(this,"header");
     private Vector<Nucleotide> sequence;
+    private NucleotideType type;
+    private DoubleProperty gcContent = new SimpleDoubleProperty(this, "gcContent");
 
     /**
      *
@@ -12,10 +16,36 @@ public class Sequence {
      * @param header
      * @throws Exception
      */
-    public Sequence(String sequence, String header) throws Exception {
-        this.header = header;
-        this.sequence = new Vector<Nucleotide>();
+    public Sequence(String sequence, String header, NucleotideType type) throws Exception {
+        this.header.set(header);
+        this.sequence = new Vector<>();
+        this.type = type;
         this.setSequence(sequence);
+        this.setGcContent();
+    }
+
+    public Sequence(String sequence, String header) throws Exception {
+        this.header.set(header);
+        this.sequence = new Vector<>();
+        this.type = NucleotideType.RNA;
+        this.setSequence(sequence);
+        this.setGcContent();
+    }
+
+    public Sequence toRNA() throws Exception {
+        this.type = NucleotideType.RNA;
+        for (int i = 0; i < sequence.size(); i++) {
+            sequence.set(i, new RnaNucleotide(sequence.get(i).getNucleotide()));
+        }
+        return this;
+    }
+
+    public Sequence toDNA() throws Exception {
+        this.type = NucleotideType.DNA;
+        for (int i = 0; i < sequence.size(); i++) {
+            sequence.set(i, new DnaNucleotide(sequence.get(i).getNucleotide()));
+        }
+        return this;
     }
 
     public Sequence reverse() {
@@ -28,10 +58,13 @@ public class Sequence {
 
     /**
      * Add 1 Nucleotide to sequence
-     * @param n Nucleotide to add
+     * @param c char to add
      */
-    public void addElement(Nucleotide n) {
-        this.sequence.addElement(n);
+    public void addElement(char c) throws Exception {
+        if (type == NucleotideType.DNA)
+            this.sequence.addElement(new DnaNucleotide(c));
+        if (type == NucleotideType.RNA)
+            this.sequence.addElement(new RnaNucleotide(c));
     }
 
     /**
@@ -51,7 +84,6 @@ public class Sequence {
         } else
             return result;
     }
-
 
     /**
      * Returning String representation of sequence
@@ -74,7 +106,7 @@ public class Sequence {
      * @return String header
      */
     public String getHeader() {
-        return header;
+        return header.get();
     }
 
     /**
@@ -89,24 +121,34 @@ public class Sequence {
         this.sequence.clear();
         for (char c : sequence.toCharArray()) {
             try {
-                this.sequence.add(new Nucleotide(c));
+                if (type == NucleotideType.DNA)
+                    this.sequence.add(new DnaNucleotide(c));
+                else if (type == NucleotideType.RNA)
+                    this.sequence.add(new RnaNucleotide(c));
             } catch (Exception e) {
-
+                //System.out.println("failed");
             }
         }
-
-/*        for(int i = 0; i < length; i++)
-            try {
-                this.sequence.add(new Nucleotide(sequence.charAt(i)));
-                length++;
-            } catch (Exception e) {
-            }*/
     }
 
-    public Sequence toUpperCase() {
-        this.sequence.forEach(nucleotide -> nucleotide.toUpperCase());
+    public Sequence toUpperCase(int begin, int end) {
+        if (begin <= end && begin < getLength() && end <= getLength()) {
+            for (int i = begin; i < end; i++) {
+                getSequence().get(i).toUpperCase();
+            }
+        }
         return this;
     }
+
+    public Sequence toLowerCase(int begin, int end) {
+        if (begin <= end && begin < getLength() && end <= getLength()) {
+            for (int i = begin; i < end; i++) {
+                getSequence().get(i).toLowerCase();
+            }
+        }
+        return this;
+    }
+
 
     public Sequence clear() {
         this.sequence.clear();
@@ -114,7 +156,12 @@ public class Sequence {
     }
 
     public Sequence toLowerCase() {
-        this.sequence.forEach(nucleotide -> nucleotide.toLowerCase());
+        toLowerCase(0,getLength());
+        return this;
+    }
+
+    public Sequence toUpperCase() {
+        toUpperCase(0, getLength());
         return this;
     }
 
@@ -129,6 +176,21 @@ public class Sequence {
         return this;
     }
 
+    public DoubleProperty getGcContentProperty() {
+        if (gcContent == null)
+            this.gcContent = new SimpleDoubleProperty();
+        return gcContent;
+    }
+
+    public void setGcContent() {
+        if(this.getLength() == 0)
+            this.gcContent.set(0.0);
+        int gcCount = 0;
+        for (Nucleotide n : this.sequence)
+            if (n.isGC()) gcCount++;
+        this.gcContent.set((double)gcCount/(double)this.getLength());
+    }
+
     public double gcContent() {
         if(this.getLength() == 0) return 0.0;
         int gcCount = 0;
@@ -137,9 +199,12 @@ public class Sequence {
         return (double)gcCount/(double)this.getLength();
     }
 
-    public Sequence toRNA() {
-        this.sequence.forEach(nucleotide -> nucleotide.toRNA());
-        return this;
+    public DoubleProperty gcContentProperty() {
+        return this.gcContent;
+    }
+
+    public void setNucleotideVector(Vector<Nucleotide> nVector) {
+        this.sequence = nVector;
     }
 
     public String toString(int line) {
@@ -149,6 +214,8 @@ public class Sequence {
     public static String toString(String s, int line) {
         StringBuilder result = new StringBuilder();
         if(!s.isEmpty()) {
+            if (line == 0)
+                return s;
             int wraps = s.length() / line;
             for (int i = 0; i < wraps; i++) {
                 result.append(s.substring(i * line, i * line + line));
@@ -159,4 +226,41 @@ public class Sequence {
         return result.toString();
     }
 
+    public void convert(NucleotideType type) throws Exception {
+        if (type != this.type) {
+            if (getType() == NucleotideType.DNA) {
+                setType(NucleotideType.RNA);
+                for (int i = 0; i < getSequence().size(); i++) {
+                    char c = getSequence().get(i).getNucleotide();
+                    if (c == 'T') c = 'U';
+                    else if (c == 't') c ='u';
+                    getSequence().set(i, new RnaNucleotide(c));
+                }
+            } else if (getType() == NucleotideType.RNA) {
+                setType(NucleotideType.DNA);
+                for (int i = 0; i < getSequence().size(); i++) {
+                    char c = getSequence().get(i).getNucleotide();
+                    if (c == 'U') c = 'T';
+                    else if (c == 'u') c ='t';
+                    getSequence().set(i, new DnaNucleotide(c));
+                }
+            }
+        }
+    }
+
+    public Vector<Nucleotide> getSequence() {
+        return sequence;
+    }
+
+    public void setType(NucleotideType type) {
+        this.type = type;
+    }
+
+    public NucleotideType getType() {
+        return type;
+    }
+
+    public void setHeader(String header) {
+        this.header.set(header);
+    }
 }

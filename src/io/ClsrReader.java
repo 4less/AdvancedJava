@@ -53,6 +53,8 @@ public class ClsrReader extends Clsr {
                         similarity = similarity.substring(0, similarity.indexOf("%"));
                         if (similarity.matches("\\d+(\\.\\d+)?") && cluster != null) {
                             Sequence seq = this.fReader.getSequence(sequence);
+                            if(seq == null)
+                                continue;
                             ClusterSequence toAdd;
                             if (isFReader) {
                                 toAdd = new ClusterSequence(sequence, seq, similarity);
@@ -77,8 +79,18 @@ public class ClsrReader extends Clsr {
         }
     }
 
+    public FastaReader getfReader() {
+        return fReader;
+    }
+
     public static void main(String[] args) throws Exception {
         ClsrReader cReader = new ClsrReader();
+        cReader.setfReader(new FastaReader("staph_aur_aur_16S.fasta"));
+        cReader.getfReader().print();
+        for(String header : cReader.getfReader().getSequenceMap().keySet()) {
+            System.out.print(header + "   ");
+            System.out.print(cReader.getfReader().getSequence(header).toString());
+        }
         BufferedReader bReader = new BufferedReader(new FileReader(new File("staph_aur_aur_16S_100.clsr")));
         cReader.read(bReader);
         cReader.print();

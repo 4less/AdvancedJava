@@ -26,7 +26,7 @@ public class Controller {
         // Initialize Events
         this.setOpenFileEvents();
         this.setExitEvent();
-        this.listenHeight(view.getScene());
+        //this.listenHeight(view.getScene());
     }
 
     public void bindFileName() {
@@ -71,15 +71,6 @@ public class Controller {
                             " found. Make sure the belonging fasta file" +
                             " is in the same directory as the clsr file.",
                             "File not found");
-            }
-        });
-    }
-
-    public void listenHeight(Scene scene) {
-        scene.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-                int difference = newSceneHeight.intValue()-oldSceneHeight.byteValue();
-                view.getTreeTableView().setPrefHeight(view.getTreeTableView().getHeight()+difference);
             }
         });
     }

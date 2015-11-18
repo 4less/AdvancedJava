@@ -19,6 +19,7 @@ public class ClusterSequence {
         this.header = header;
         this.similarity = similarity;
         this.sequence = sequence;
+        System.out.println(header);
         this.length = this.sequence.getLength();
         this.similarity = similarity;
     }
