@@ -17,7 +17,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Optional;
 /**
  * Created by Joachim on 11/11/2015.
  */
@@ -147,6 +146,7 @@ public class Presenter {
                         if (newValue != null) getView().getNavigation().setIsSelected(true);
                         else getView().getNavigation().setIsSelected(false);
 
+
                         if (!getView().getNavigation().isSelfEvoke()) {
                             if (getModel().isFileLoaded() && newValue != null) {
                                 if (oldValue != null && !getModel().isSequenceUpdated()) {
@@ -163,8 +163,10 @@ public class Presenter {
                                         updateTextfield();
                                         getModel().setSequenceUpdated(true);
                                     } else {
-                                        getView().getNavigation().setSelfEvoke(true);
-                                        getView().getNavigation().getSequenceList().getSelectionModel().select(oldValue);
+                                        Platform.runLater(() ->  {
+                                            getView().getNavigation().setSelfEvoke(true);
+                                            getView().getNavigation().getSequenceList().getSelectionModel().select(oldValue);
+                                        });
                                     }
                                 }
                                 if (getModel().isSequenceUpdated()) {
@@ -174,7 +176,7 @@ public class Presenter {
                                 }
                             }
                         }
-                        getView().getNavigation().setSelfEvoke(false);
+                        //getView().getNavigation().setSelfEvoke(false);
                     }
                 });
     }
