@@ -81,7 +81,7 @@ public class View {
         rotate.setMajorTickUnit(20);
         rotate.setShowTickMarks(true);
 
-        itemBox.getChildren().addAll(compute,draw,animate);
+        itemBox.getChildren().addAll(compute,draw,rotate,animate);
         topBox.getChildren().addAll(sequenceField, structureField, itemBox);
         root.setTop(topBox);
         root.setCenter(drawPane);
