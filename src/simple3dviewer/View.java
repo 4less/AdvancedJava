@@ -1,5 +1,7 @@
 package simple3dviewer;
 
+import Shapes3D.Line3D;
+import io.PDBParser;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
@@ -9,14 +11,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.DrawMode;
+import javafx.scene.shape.*;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-import javafx.scene.shape.Rectangle;
+import moleview.Atom3DStickModel;
+import moleview.AtomElement;
+import moleview.Molecule3D;
+
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Joachim on 03/12/2015.
@@ -29,11 +35,16 @@ public class View {
     private Pane topPane = new Pane();
     private SubScene subScene;
 
-    private final Group object = new Group();
+    private  Group object = new Group();
+
+//    private  Molecule3D object;
+
 
     private final Box box1 = new Box(100,150,100);
     private final Box box2 = new Box(100,150,100);
     private final Cylinder cylinder = new Cylinder(40,300);
+
+//    private Rectangle bbb1, bbb2, bbc;
 
     private Rectangle bbb1, bbb2, bbc;
 
@@ -47,18 +58,21 @@ public class View {
 
     private Point3D center;
 
-    public View() {
+    public View() throws IOException {
         initCamera();
         initObject();
         initButtons();
+
         scene = new Scene(shackPlane, 800, 500, true);
         subScene = new SubScene(object, 800,500, true, SceneAntialiasing.BALANCED);
+
         subScene.setCamera(camera);
         shackPlane.getChildren().addAll(subScene, topPane);
         scene.setFill(Color.DARKGRAY);
         setDrag();
         updateScreenCenter();
         //updateRotation(500);
+
 
     }
 
@@ -96,7 +110,7 @@ public class View {
 
     public void initObject() {
         PhongMaterial material = new PhongMaterial(Color.ANTIQUEWHITE);
-        PhongMaterial cylMaterial = new PhongMaterial(Color.CRIMSON);
+        PhongMaterial cylMaterial = new PhongMaterial(Color.DARKGREY);
         PhongMaterial material2 =  new PhongMaterial(Color.BEIGE);
 
         box1.drawModeProperty().set(DrawMode.FILL);
@@ -122,12 +136,6 @@ public class View {
         if (result < 0.1 || Double.isNaN(result))
             return 0.1;
         return result;
-    }
-
-    public void updateRotation(double z) {
-        rotationX.setPivotZ(-1*z);
-        rotationY.setPivotZ(-1*z);
-        rotationZ.setPivotZ(-1*z);
     }
 
     public void updateScreenCenter() {
