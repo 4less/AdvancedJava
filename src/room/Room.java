@@ -24,12 +24,13 @@ public class Room extends SubScene {
     public Room(Group object, double width, double height) {
         super(object, width, height, true, SceneAntialiasing.BALANCED);
         this.setRoot(this.object);
-        this.setFill(Color.BLACK);
+        this.setFill(Color.WHITE);
         initCamera();
         updateSceneCenter();
         centerObject();
         this.object.getChildren().add(object);
     }
+
 
     public void centerObject() {
         Double x = 0.0, y = 0.0, z = 0.0;
