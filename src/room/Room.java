@@ -27,32 +27,58 @@ public class Room extends SubScene {
         this.setFill(Color.BLACK);
         initCamera();
         updateSceneCenter();
-        centerObject();
         this.object.getChildren().add(object);
+        centerObject();
+    }
+
+    private class CenterDev {
+        double x,y,z;
+        int count;
+
+        public CenterDev() {
+            x = 0;
+            y = 0;
+            z = 0;
+            count = 0;
+        }
+
+        public void print() {
+            System.out.println(x + " : " + y + " : " + z);
+        }
+
+        public void computeDev() {
+            x = -1 * x/count;
+            y = -1 * y/count;
+            z = -1 * z/count;
+        }
     }
 
     public void centerObject() {
-        Double x = 0.0, y = 0.0, z = 0.0;
-        Integer count = 0;
-        centerRecursion(object, x, y, z, count);
-        x = -1 * x/count;
-        y = -1 * y/count;
-        z = -1 * z/count;
-        centerRecursion(object, x, y, z);
+        CenterDev center = new CenterDev();
+        centerRecursion(object, center);
+
+        center.print();
+        center.computeDev();
+        center.print();
+//        object.setTranslateX(center.x);
+//        object.setTranslateY(center.y);
+//        object.setTranslateZ(center.z);
+
+//        centerRecursion(object, center.x, center.y, center.z);
     }
 
-    public void centerRecursion(Group node, Double x, Double y, Double z, Integer count) {
+    public void centerRecursion(Group node, CenterDev center) {
         if (!node.getChildren().isEmpty()) {
             if (!(node.getChildren().get(0) instanceof Group)) {
                 for (Node element : node.getChildren()) {
-                    x += element.getTranslateX();
-                    y += element.getTranslateY();
-                    z += element.getTranslateZ();
-                    count++;
+                    center.x += element.getTranslateX();
+                    center.y += element.getTranslateY();
+                    center.z += element.getTranslateZ();
+                    center.count++;
                 }
             } else {
                 for (Object group : node.getChildren())
-                    centerRecursion((Group) group, x, y, z, count);
+                    centerRecursion((Group) group, center);
             }
         }
     }
