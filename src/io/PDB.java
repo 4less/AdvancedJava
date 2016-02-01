@@ -9,11 +9,19 @@ import java.util.Iterator;
  * Created by Joachim on 09/12/2015.
  */
 public class PDB implements Iterable<PDBAtom> {
-    private ArrayList<PDBAtom> atoms = new ArrayList<>();
+    private ArrayList<PDBModel> models = new ArrayList<>();
     private ArrayList<PDBConect> conect = new ArrayList<>();
 
+    public ArrayList<PDBAtom> getAtoms(int index) {
+        return models.get(index).getAtoms();
+    }
+
     public ArrayList<PDBAtom> getAtoms() {
-        return atoms;
+        return models.get(0).getAtoms();
+    }
+
+    public ArrayList<PDBModel> getModels() {
+        return models;
     }
 
     public ArrayList<PDBConect> getConect() {
@@ -22,7 +30,7 @@ public class PDB implements Iterable<PDBAtom> {
 
     @Override
     public Iterator<PDBAtom> iterator() {
-        return atoms.iterator();
+        return getAtoms().iterator();
     }
 
     public static void main(String[] args) throws IOException {

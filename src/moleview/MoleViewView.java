@@ -71,7 +71,7 @@ public class MoleViewView {
         statusBar.getChildren().add(new Label(filename));
         //statusBar.setStyle("-fx-background-color: #FFFFFF;");
         room = new Room(objects, 800, 500);
-        room.rotateObject(scene);
+        room.rotateCamera(room);
         room.scaleCamera(scene);
         room.setFill(Color.WHITE);
 

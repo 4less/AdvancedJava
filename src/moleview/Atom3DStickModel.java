@@ -36,7 +36,6 @@ public class Atom3DStickModel {
         PhongMaterial material = new PhongMaterial(atom.getColor());
         line.setDrawMode(DrawMode.FILL);
         line.setMaterial(material);
-
     }
 
     private void initMaterial() {

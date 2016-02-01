@@ -16,7 +16,7 @@ public class RNAXDMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Call controller
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("project2_split.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("project.fxml"));
         Parent root = loader.load();
 
         ((RNAXDPresenter) loader.getController()).show(root, primaryStage);

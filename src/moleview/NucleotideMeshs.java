@@ -204,7 +204,6 @@ public class NucleotideMeshs extends Group {
 
                 //add connections
                 this.addConnections(atom.getResName(), coordinates);
-
                 this.getChildren().addAll(sugar, base, phosphor);
                 this.phosphorCoords.add(coordinates[14]);
                 corrupt = true;
