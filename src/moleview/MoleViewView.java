@@ -1,28 +1,19 @@
 package moleview;
 
 import io.PDBParser;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.CullFace;
-import javafx.scene.shape.DrawMode;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.TriangleMesh;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import room.Room;
-
-import javax.swing.border.Border;
 import java.io.File;
 import java.io.IOException;
 
@@ -50,40 +41,47 @@ public class MoleViewView {
     private Pane topPane = new Pane();
     private Room room;
 
+    private HBox statusBar = new HBox();
 
     private Group object;
     private Molecule3D stickModelObject;
 
     private Point3D center;
 
+    private DoubleBinding widthProperty;
+    private DoubleBinding heightProperty;
+
     public MoleViewView() throws IOException {
-        object = new NucleotideMeshs(PDBParser.parse(new File("AUGC.pdb")));
-        stickModelObject = new Molecule3D(PDBParser.parse(new File("AUGC.pdb")));
-        stickModelObject.build3DModel(1.7);
+        String filename = "2fdt.pdb";
+        object = new NucleotideMeshs(PDBParser.parse(new File(filename)));
+//        object = new NucleotideMeshs(PDBParser.parse(new File("AUGC.pdb")));
+        //stickModelObject = new Molecule3D(PDBParser.parse(new File("AUGC.pdb")));
+        //stickModelObject.build3DModel(1.7);
 
         //buildTestMesh();
 
         Group objects = new Group();
 
-        objects.getChildren().addAll(object, stickModelObject);
+        objects.getChildren().addAll(object);
 
-        scene = new Scene(root, 800, 500, true);
+        scene = new Scene(shackPlane, 800, 500, true);
         root.setTop(menuBar);
-        root.setCenter(shackPlane);
+        //root.setCenter(shackPlane);
+        root.setBottom(statusBar);
+        statusBar.getChildren().add(new Label(filename));
+        //statusBar.setStyle("-fx-background-color: #FFFFFF;");
         room = new Room(objects, 800, 500);
-        room.rotateObject(scene);
+        room.rotateCamera(room);
         room.scaleCamera(scene);
+        room.setFill(Color.WHITE);
 
 
 //        menuBar.getMenus().addAll(file,display);
 //        file.getItems().addAll(open,exit);
 //        display.getItems().addAll(stickmodel, stickspheremodel);
 
-        shackPlane.getChildren().addAll(room, topPane);
+        shackPlane.getChildren().addAll(room, root);
         scene.setFill(Color.DARKGRAY);
-
-
-
     }
 
     public void show(Stage primaryStage) {

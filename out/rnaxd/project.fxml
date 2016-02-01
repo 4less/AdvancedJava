@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rnaxd.RNAXDPresenter">
+   <bottom>
+      <HBox maxHeight="27.0" minHeight="27.0" prefHeight="27.0" prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <children>
+            <Label text="Label" />
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem id="openItem" fx:id="openItem" mnemonicParsing="false" text="Open" />
+              <MenuItem id="closeItem" fx:id="closeItem" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="View">
+            <items>
+                  <CheckMenuItem id="reloadItem" fx:id="reloadItem" mnemonicParsing="false" text="Reload on structure change" />
+                  <Menu mnemonicParsing="false" text="Coloring scheme">
+                     <items>
+                        <CheckMenuItem id="pyrpurItem" fx:id="pyrpurItem" mnemonicParsing="false" text="Purine/Pyrimidine" />
+                        <CheckMenuItem id="augcItem" fx:id="augcItem" mnemonicParsing="false" text="AUGC" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Structure view">
+                     <items>
+                        <CheckMenuItem id="meshItem" fx:id="meshItem" mnemonicParsing="false" text="MeshView" />
+                        <CheckMenuItem id="stickItem" fx:id="stickItem" mnemonicParsing="false" text="StickView" />
+                        <CheckMenuItem id="ballItem" fx:id="ballItem" mnemonicParsing="false" text="BallView" />
+                     </items>
+                  </Menu>
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <GridPane id="gridPane" fx:id="gridPane" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="NEVER" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="385.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="80.0" minHeight="80.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ScrollPane maxHeight="80.0" minHeight="80.0" prefHeight="80.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                           <content>
+                              <HBox id="primaryBox" fx:id="primaryBox" prefWidth="200.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <VBox id="button_box" prefHeight="200.0" prefWidth="100.0" stylesheets="@buttons.css" GridPane.columnIndex="2">
+                           <children>
+                              <ToggleButton id="colorPyrpur" fx:id="colorPyrpur" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="color" />
+                                 </toggleGroup>
+                                 <tooltip>
+                                    <Tooltip text="Color nucleotides if it is a pyrimidine or a purine" />
+                                 </tooltip>
+                              </ToggleButton>
+                              <ToggleButton id="colorAugc" fx:id="colorAugc" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css" toggleGroup="$color">
+                                 <tooltip>
+                                    <Tooltip text="Color nucleotides by base" />
+                                 </tooltip>
+                              </ToggleButton>
+                              <ToggleButton id="structureMesh" fx:id="structureMesh" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" selected="true" stylesheets="@buttons.css">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="structure" />
+                                 </toggleGroup>
+                                 <tooltip>
+                                    <Tooltip text="Activate MeshView" />
+                                 </tooltip>
+                              </ToggleButton>
+                              <ToggleButton id="structureStick" fx:id="structureStick" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <tooltip>
+                                    <Tooltip text="Activate StickView" />
+                                 </tooltip>
+                              </ToggleButton>
+                              <ToggleButton id="structureBall" fx:id="structureBall" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <tooltip>
+                                    <Tooltip text="Activate StickView" />
+                                 </tooltip>
+                              </ToggleButton>
+                              <ToggleButton id="playRotate" fx:id="playRotate" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <tooltip>
+                                    <Tooltip text="Press to start or stop automatic rotation around y-axis" />
+                                 </tooltip>
+                              </ToggleButton>
+                              <Button id="rotateLeft" fx:id="rotateLeft" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <tooltip>
+                                    <Tooltip text="Rotate left on mouse pressed" />
+                                 </tooltip>
+                              </Button>
+                              <Button id="rotateRight" fx:id="rotateRight" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <tooltip>
+                                    <Tooltip text="Rotate right on mouse pressed" />
+                                 </tooltip>
+                              </Button>
+                              <Button id="zoomIn" fx:id="zoomIn" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <tooltip>
+                                    <Tooltip text="Zoom in on mouse pressed" />
+                                 </tooltip>
+                              </Button>
+                              <Button id="zoomOut" fx:id="zoomOut" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <tooltip>
+                                    <Tooltip text="Zoom out on mouse pressed" />
+                                 </tooltip>
+                              </Button>
+                              <Button id="centerObject" fx:id="centerObject" contentDisplay="GRAPHIC_ONLY" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" stylesheets="@buttons.css">
+                                 <tooltip>
+                                    <Tooltip text="Center object" />
+                                 </tooltip>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <Pane id="pane2D" fx:id="pane2D" prefHeight="200.0" prefWidth="200.0" />
+                        <Pane id="pane3D" fx:id="pane3D" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <TextArea id="errorArea" fx:id="errorArea" editable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>

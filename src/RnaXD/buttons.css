@@ -1,0 +1,48 @@
+.toggle-button {
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+}
+#playRotate {
+  -fx-background-image: url('images/playrotate.png');
+}
+
+#playRotate:selected {
+  -fx-background-image: url('images/stoprotate.png');
+}
+.button {
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#rotateLeft {
+    -fx-background-image: url('images/rotateleft.png');
+}
+#rotateRight {
+    -fx-background-image: url('images/rotateright.png');
+}
+#centerObject {
+    -fx-background-image: url('images/center.png');
+}
+#zoomIn {
+    -fx-background-image: url('images/zoom_in.png');
+}
+#zoomOut {
+    -fx-background-image: url('images/zoom_out.png');
+}
+#structureMesh {
+    -fx-background-image: url('images/meshview.png');
+}
+#structureStick {
+    -fx-background-image: url('images/stickview.png');
+}
+#structureBall {
+    -fx-background-image: url('images/ballview.png');
+}
+#colorAugc {
+    -fx-background-image: url('images/augc.png');
+}
+#colorPyrpur {
+    -fx-background-image: url('images/pyr_pur.png');
+}
+#button_box {
+    -fx-background-color: dimgray;
+}

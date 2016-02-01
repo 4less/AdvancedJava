@@ -39,10 +39,10 @@ public enum AtomElement {
 
     public double dist(AtomElement element) {
         if (this == element && element != AtomElement.C) {
-//            System.out.println("equal");
+            //System.out.println("equal");
             return 0.5;
         }
-//        System.out.println("not equal");
+        //System.out.println("not equal");
         return 1.65;
     }
 

@@ -2,9 +2,11 @@ package room;
 
 import javafx.geometry.Point3D;
 import javafx.scene.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 
 import java.awt.*;
 
@@ -13,9 +15,17 @@ import java.awt.*;
  * Created by Joachim on 11/12/2015.
  */
 public class Room extends SubScene {
+    final PerspectiveCamera camera = new PerspectiveCamera(true);
+    
+    private static final double CAMERA_INITIAL_DISTANCE = -150;
+    private static final double CAMERA_NEAR_CLIP = 0.1;
+    private static final double CAMERA_FAR_CLIP = 10000.0;
+    
     private final Rotate rotateX = new Rotate(0, new Point3D(0,1,0));
     private final Rotate rotateY = new Rotate(0, new Point3D(1,0,0));
     private final Rotate rotateZ = new Rotate(0, new Point3D(0,0,1));
+
+    final XformCamera cameraXform = new XformCamera();
 
     private Point3D center;
 
@@ -24,9 +34,10 @@ public class Room extends SubScene {
     public Room(Group object, double width, double height) {
         super(object, width, height, true, SceneAntialiasing.BALANCED);
         this.setRoot(this.object);
-        this.setFill(Color.BLACK);
-        initCamera();
-        updateSceneCenter();
+        this.setFill(Color.WHITE);
+        buildCamera();
+        this.setCamera(camera);
+
         this.object.getChildren().add(object);
         centerObject();
     }
@@ -52,6 +63,19 @@ public class Room extends SubScene {
             z = -1 * z/count;
         }
     }
+
+
+    public Group getObject() {
+        return object;
+    }
+
+    public void centerObject(Point3D translate) {
+        System.err.println("Translate: " + translate);
+        object.setTranslateX(translate.getX());
+        object.setTranslateY(translate.getY());
+        object.setTranslateZ(translate.getZ());
+    }
+
 
     public void centerObject() {
         CenterDev center = new CenterDev();
@@ -114,7 +138,7 @@ public class Room extends SubScene {
         this.center = new Point3D(this.getWidth()/2, this.getHeight()/2,0.0);
     }
 
-    public void rotateObject(Scene scene) {
+    public void rotateObject(SubScene scene) {
         this.getRoot().getTransforms().addAll(rotateX,rotateY);
         final Delta dragDelta = new Delta();
         final Delta angleDelta = new Delta();
@@ -127,41 +151,86 @@ public class Room extends SubScene {
         scene.setOnMouseDragged((me) -> {
             double xCoordinate = me.getSceneX() - dragDelta.x;
             double yCoordinate = me.getSceneY() - dragDelta.y;
-            double z = getSphereZ(me.getSceneX() - center.getX(), me.getSceneY() - center.getY());
-            z = Math.pow(z, 2);
+            double z = 1;
+            //double z = getSphereZ(me.getSceneX() - center.getX(), me.getSceneY() - center.getY());
+            //z = Math.pow(z, 2);
             rotateX.setAngle(angleDelta.x + xCoordinate * z / 2);
             rotateY.setAngle(angleDelta.y - yCoordinate * z / 2);
         });
 
     }
 
-    public void rotateCamera() {
+    public void rotateCamera(SubScene scene) {
+        final Delta dragDelta = new Delta();
+        final Delta dragDeltaOld = new Delta();
+        final Delta mouseDelta = new Delta();
+        scene.setOnMousePressed((MouseEvent me) -> {
+            dragDelta.x = me.getSceneX();
+            dragDelta.y = me.getSceneY();
+            dragDeltaOld.x = me.getSceneX();
+            dragDeltaOld.y = me.getSceneY();
+        });
+        scene.setOnMouseDragged((MouseEvent me) -> {
+            dragDeltaOld.x = dragDelta.x;
+            dragDeltaOld.y = dragDelta.y;
+            dragDelta.x = me.getSceneX();
+            dragDelta.y = me.getSceneY();
+            mouseDelta.x = (dragDelta.x - dragDeltaOld.x);
+            mouseDelta.y = (dragDelta.y - dragDeltaOld.y);
+            cameraXform.ry.setAngle(cameraXform.ry.getAngle() + mouseDelta.x * 0.2);
+            cameraXform.rx.setAngle(cameraXform.rx.getAngle() - mouseDelta.y * 0.2);
 
+        });
     }
 
     public void scaleCamera(Scene scene) {
         final Delta mouseMoveDelta = new Delta();
         final Delta scaleDelta = new Delta();
         scene.setOnKeyPressed((me) -> {
-            scaleDelta.x = this.getCamera().getTranslateZ();
+            scaleDelta.x = camera.getTranslateZ();
             mouseMoveDelta.y = MouseInfo.getPointerInfo().getLocation().getY();
         });
-        scene.setOnMouseMoved((me) -> {
+        this.setOnMouseMoved((me) -> {
             if (me.isShiftDown()) {
                 double scaleValue = (MouseInfo.getPointerInfo().getLocation().getY() - mouseMoveDelta.y);
-                this.getCamera().setTranslateZ(scaleDelta.x + scaleValue * 2);
+                System.out.println(scaleDelta.x + " + (" + MouseInfo.getPointerInfo().getLocation().getY() + " - " + mouseMoveDelta.y + ")");
+                camera.setTranslateZ(scaleDelta.x + scaleValue * 2);
             }
         });
     }
 
-    private void initCamera() {
-        this.setCamera(new PerspectiveCamera(true));
-        this.getCamera().setNearClip(0.1);
-        this.getCamera().setFarClip(10000.0);
-        this.getCamera().setTranslateZ(-500);
+    private void buildCamera() {
+        object.getChildren().add(cameraXform);
+        cameraXform.getChildren().add(camera);
+        camera.setNearClip(CAMERA_NEAR_CLIP);
+        camera.setFarClip(CAMERA_FAR_CLIP);
+        camera.setTranslateZ(CAMERA_INITIAL_DISTANCE);
+    }
+
+    public void setCameraCenter(Point3D center) {
+        cameraXform.t.setX(center.getX());
+        cameraXform.t.setY(center.getY());
+        cameraXform.t.setZ(center.getZ());
+
+        //cameraXform.t.transform(center.getX(), center.getY(), center.getZ());
     }
 
     class Delta {
         double x, y, z;
     }
+}
+
+
+class XformCamera extends Group {
+
+    final Translate t = new Translate(0.0, 0.0, 0.0);
+    final Rotate rx = new Rotate(0, 0, 0, 0, Rotate.X_AXIS);
+    final Rotate ry = new Rotate(0, 0, 0, 0, Rotate.Y_AXIS);
+    final Rotate rz = new Rotate(0, 0, 0, 0, Rotate.Z_AXIS);
+
+    public XformCamera() {
+        super();
+        this.getTransforms().addAll(t, rx, ry, rz);
+    }
+
 }

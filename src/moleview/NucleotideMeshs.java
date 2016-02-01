@@ -1,9 +1,12 @@
 package moleview;
 
+import Shapes3D.Line3D;
+import com.sun.prism.impl.BaseMesh;
 import io.PDB;
 import io.PDBAtom;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
@@ -16,6 +19,7 @@ import java.util.List;
  * Created by Joachim on 14/12/2015.
  */
 public class NucleotideMeshs extends Group {
+    private static final ArrayList<Point3D> phosphorCoords = new ArrayList<>();
     private static final int SCALE = 1;
     private static final int PHOSPHOR_RADIUS = 1;
 
@@ -59,7 +63,12 @@ public class NucleotideMeshs extends Group {
             2, 0, 4, 0, 3, 0,
     };
 
-    private static final Material material = new PhongMaterial(Color.CRIMSON);
+    private static Material material;
+
+    private static final Material materialG = new PhongMaterial(Color.GREEN);
+    private static final Material materialA = new PhongMaterial(Color.BLUE);
+    private static final Material materialU = new PhongMaterial(Color.YELLOW);
+    private static final Material materialC = new PhongMaterial(Color.RED);
 
     public NucleotideMeshs(PDB pdb) {
         parsePDB(pdb);
@@ -88,10 +97,10 @@ public class NucleotideMeshs extends Group {
 
 
         for (PDBAtom atom : pdb.getAtoms()) {
-            System.out.println(atom.getName());
+            //System.out.println(atom.getName());
             if (resSeq != atom.getResSeq()) {
                 //printCoordinates(coordinates);
-                printAsArray(coordinates);
+                //printAsArray(coordinates);
                 //System.out.println("######" + atom.getResName() + "#####################");
                 resSeq = atom.getResSeq();
                 coordinates = new Point3D[15];
@@ -148,8 +157,7 @@ public class NucleotideMeshs extends Group {
                 }
             }
 
-
-            if (isSugarValid(coordinates) && isBaseValid(coordinates, atom.getResName()) && !corrupt) {
+            if (coordinates[14] != null && isSugarValid(coordinates) && isBaseValid(coordinates, atom.getResName()) && !corrupt) {
                 scalePoints(coordinates);
 
                 TriangleMesh sugarMesh = new TriangleMesh();
@@ -157,28 +165,62 @@ public class NucleotideMeshs extends Group {
                 sugarMesh.getPoints().addAll(coordinateArray(coordinates, sugarIndizes));
                 sugarMesh.getFaces().addAll(sugarfaces);
 
+
                 switch (atom.getResName()) {
                     case "G":
+                        material = materialG;
                         baseMesh.getPoints().addAll(coordinateArray(coordinates, purinIndizes));
                         baseMesh.getFaces().addAll(purinfaces);
                         break;
                     case "A":
+                        material = materialA;
                         baseMesh.getPoints().addAll(coordinateArray(coordinates, purinIndizes));
                         baseMesh.getFaces().addAll(purinfaces);
                         break;
                     case "U":
+                        material = materialU;
                         baseMesh.getPoints().addAll(coordinateArray(coordinates, pyrimidineIndizes));
                         baseMesh.getFaces().addAll(pyrimidinefaces);
                         break;
                     case "C":
+                        material = materialC;
                         baseMesh.getPoints().addAll(coordinateArray(coordinates, pyrimidineIndizes));
                         baseMesh.getFaces().addAll(pyrimidinefaces);
                         break;
                 }
                 sugarMesh.getTexCoords().addAll(texCoords);
                 baseMesh.getTexCoords().addAll(texCoords);
-                this.getChildren().addAll(createMesh(sugarMesh), createMesh(baseMesh), createSphere(coordinates[14]));
+                System.out.println("ResSeq: " + atom.getResSeq());
+
+                //Tooltips
+                Tooltip tooltip = new Tooltip(atom.getResName() + atom.getResSeq());
+
+                MeshView sugar = createMesh(sugarMesh);
+                Tooltip.install(sugar, tooltip);
+                MeshView base = createMesh(baseMesh);
+                Tooltip.install(base, tooltip);
+                phosphor = createSphere(coordinates[14]);
+                Tooltip.install(phosphor, tooltip);
+
+                //add connections
+                this.addConnections(atom.getResName(), coordinates);
+                this.getChildren().addAll(sugar, base, phosphor);
+                this.phosphorCoords.add(coordinates[14]);
                 corrupt = true;
+            }
+        }
+        connectPhosphorAtoms();
+    }
+
+    private void connectPhosphorAtoms() {
+        Line3D line;
+        for (int current = 1, previous = 0; current < phosphorCoords.size(); current++, previous++) {
+            System.out.println(phosphorCoords.get(previous).distance(phosphorCoords.get(current)));
+            if (phosphorCoords.get(previous).distance(phosphorCoords.get(current)) <= 8.0 / SCALE) {
+                System.out.println(phosphorCoords.get(previous) + " : " + phosphorCoords.get(current));
+                line = new Line3D(phosphorCoords.get(previous), phosphorCoords.get(current), PHOSPHOR_RADIUS / 5.0);
+                line.setMaterial(new PhongMaterial(Color.PURPLE));
+                this.getChildren().add(line);
             }
         }
     }
@@ -245,6 +287,28 @@ public class NucleotideMeshs extends Group {
                 return checkPyrimidine(bases);
         }
         return false;
+    }
+
+    private void addConnections(String atom, Point3D[] coordinates) {
+        double radius = 0.05;
+        //Material material = new PhongMaterial(Color.WHITE);
+        Line3D phosphorsugar = new Line3D(coordinates[14], coordinates[3], radius);
+        phosphorsugar.setMaterial(material);
+        Line3D sugarbase = null;
+        switch(atom) {
+            case "G":
+            case "A":
+                sugarbase = new Line3D(coordinates[13], coordinates[0], radius);
+                break;
+            case "U":
+            case "C":
+                sugarbase = new Line3D(coordinates[5], coordinates[0], radius);
+                break;
+        }
+        if (sugarbase != null) {
+            sugarbase.setMaterial(material);
+            this.getChildren().addAll(phosphorsugar, sugarbase);
+        }
     }
 
     private boolean isPhosphorValid(Sphere phosphor) {

@@ -1,0 +1,6 @@
+.label {
+  -fx-padding: 2;
+  -fx-font-size: 13pt;
+  -fx-font-weight: bold;
+  -fx-font-family: "Monospaced";
+}

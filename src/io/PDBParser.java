@@ -8,11 +8,17 @@ import java.io.*;
 public class PDBParser {
     public static PDB parse(File pdbFile) throws IOException {
         PDB pdb = new PDB();
+        PDBModel model;
         BufferedReader pdbReader = new BufferedReader(new FileReader(pdbFile));
         String line;
         while ((line = pdbReader.readLine()) != null) {
+            if (line.startsWith("MODEL")) {
+                pdb.getModels().add(parseModel(line));
+            }
             if (line.startsWith("ATOM")) {
-                pdb.getAtoms().add(parseAtom(line));
+                if (pdb.getModels().isEmpty())
+                    pdb.getModels().add(new PDBModel(-1));
+                pdb.getAtoms(pdb.getModels().size()-1).add(parseAtom(line));
             } else if (line.startsWith("CONECT")) {
                 pdb.getConect().add(parseConect(line));
             }
@@ -91,6 +97,15 @@ public class PDBParser {
                 tempFactor,
                 subString(lineArray, 77, 78).trim(),"");
                 //subString(lineArray, 79, 80).trim());
+    }
+
+    private static PDBModel parseModel(String line) {
+        char[] lineArray = line.toCharArray();
+        int modelNum = -1;
+        if (!subString(lineArray, 11, 14).trim().isEmpty() && lineArray.length >= 13) {
+            modelNum = Integer.parseInt(subString(lineArray,11,14).trim());
+        }
+        return new PDBModel(modelNum);
     }
 
     private static String subString(char[] string, int beginCol, int endCol) {
