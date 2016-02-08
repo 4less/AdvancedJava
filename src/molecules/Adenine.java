@@ -94,6 +94,7 @@ public class Adenine extends Nucleotide {
         nucleotideBondsMap.get("C1'").add("N9");
     }
 
+
     public boolean checkValidity() {
         if (!super.checkValidity()) return false;
         for (int i = 0; i < baseCoordinates.length ; i++)
@@ -132,5 +133,20 @@ public class Adenine extends Nucleotide {
             baseCoordinates[baseMap.get(atom)] = coordinates;
             return true;
         }
+    }
+
+    @Override
+    public String[] getWcDonor() {
+        return new String[] {"N6"};
+    }
+
+    @Override
+    public String[] getWcAcceptor() {
+        return new String[]  {"N1"};
+    }
+
+    @Override
+    public String[] getWcDonorH() {
+        return new String[] {"H62"};
     }
 }

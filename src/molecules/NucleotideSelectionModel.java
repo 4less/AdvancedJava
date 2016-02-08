@@ -4,7 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.util.Arrays;
 
@@ -38,7 +42,6 @@ public class NucleotideSelectionModel<T> extends MultipleSelectionModel<T> {
             final ObservableList<Integer> selectedIndicesAsList = FXCollections.observableArrayList();
             final ObservableList<T> selectedItems = FXCollections.observableArrayList();
             selectedIndices.addListener((SetChangeListener<Integer>) c -> {
-                System.out.println("change");
                 if (c.wasAdded()) {
                     selectedIndicesAsList.add(c.getElementAdded());
                     selectedItems.add(getItems()[c.getElementAdded()]);
@@ -70,6 +73,22 @@ public class NucleotideSelectionModel<T> extends MultipleSelectionModel<T> {
     public void setItems(T[] items) {
         clearSelection();
         this.items = Arrays.copyOf(items,items.length); // use copy for safety
+    }
+
+    public boolean deselect(Integer index) {
+        if (isSelected(index)) {
+            for (Integer select : selectedIndices) {
+                if (select == index) {
+                    selectedIndices.remove(select);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public int getFocusIndex() {
+        return focusIndex;
     }
 
     @Override
@@ -177,5 +196,23 @@ public class NucleotideSelectionModel<T> extends MultipleSelectionModel<T> {
     public void selectNext() {
         if (focusIndex >= 0 && focusIndex + 1 < items.length)
             select(++focusIndex);
+    }
+
+    public void installEventHandler(final Parent keyboardNode) {
+        final EventHandler<KeyEvent> keyEventHandler =
+                new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent keyEvent) {
+                        if (keyEvent.getCode() == KeyCode.LEFT) {
+                            selectPrevious();
+                            keyEvent.consume();
+                        }
+                        if (keyEvent.getCode() == KeyCode.RIGHT) {
+                            selectNext();
+                            keyEvent.consume();
+                        }
+                    }
+                };
+        keyboardNode.setOnKeyPressed(keyEventHandler);
     }
 }

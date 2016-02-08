@@ -12,12 +12,13 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import selection.Selectable;
 
 
 /**
  * Created by Jogi on 21.01.2016.
  */
-public class BaseBox extends VBox {
+public class BaseBox extends VBox implements Selectable {
     private BaseType base;
     private final Label baseLabel = new Label("");
     //private final Line baseType =
@@ -42,7 +43,7 @@ public class BaseBox extends VBox {
     public void setSelection() {
         this.backgroundProperty().bind(Bindings.when(selected)
             .then(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)))
-            .otherwise(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY))));
+            .otherwise(new Background(new BackgroundFill(Color.grayRgb(1, 0.0), CornerRadii.EMPTY, Insets.EMPTY))));
     }
 
     public void colorNucleotides() {

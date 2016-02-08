@@ -83,6 +83,7 @@ public class Cytosine extends Nucleotide {
         nucleotideBondsMap.get("C1'").add("N1");
     }
 
+
     public boolean checkValidity() {
         if (!super.checkValidity()) return false;
         for (int i = 0; i < baseCoordinates.length ; i++)
@@ -124,5 +125,21 @@ public class Cytosine extends Nucleotide {
             baseCoordinates[Cytosine.baseMap.get(atom)] = coordinates;
             return true;
         }
+    }
+
+
+    @Override
+    public String[] getWcDonor() {
+        return new String[] {"N4"};
+    }
+
+    @Override
+    public String[] getWcAcceptor() {
+        return new String[]  {"O2", "N3"};
+    }
+
+    @Override
+    public String[] getWcDonorH() {
+        return new String[] {"H42"};
     }
 }

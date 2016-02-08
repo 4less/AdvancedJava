@@ -30,7 +30,7 @@ public class RnaSequenceView {
 
     public void setSelectionModel(NucleotideSelectionModel model) {
         this.selectionModel = model;
-        setSelectionCapture();
+        //setSelectionCapture();
         setBoxSelection();
     }
 

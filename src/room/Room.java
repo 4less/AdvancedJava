@@ -42,6 +42,11 @@ public class Room extends SubScene {
         centerObject();
     }
 
+    public void setObject(Group object) {
+        this.object.getChildren().clear();
+        this.object.getChildren().add(object);
+    }
+
     private class CenterDev {
         double x,y,z;
         int count;
@@ -193,7 +198,6 @@ public class Room extends SubScene {
         this.setOnMouseMoved((me) -> {
             if (me.isShiftDown()) {
                 double scaleValue = (MouseInfo.getPointerInfo().getLocation().getY() - mouseMoveDelta.y);
-                System.out.println(scaleDelta.x + " + (" + MouseInfo.getPointerInfo().getLocation().getY() + " - " + mouseMoveDelta.y + ")");
                 camera.setTranslateZ(scaleDelta.x + scaleValue * 2);
             }
         });
@@ -211,15 +215,16 @@ public class Room extends SubScene {
         cameraXform.t.setX(center.getX());
         cameraXform.t.setY(center.getY());
         cameraXform.t.setZ(center.getZ());
-
-        //cameraXform.t.transform(center.getX(), center.getY(), center.getZ());
     }
 
     class Delta {
         double x, y, z;
     }
-}
 
+    public Translate getCameraXform() {
+        return cameraXform.t;
+    }
+}
 
 class XformCamera extends Group {
 

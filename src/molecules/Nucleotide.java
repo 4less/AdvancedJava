@@ -118,6 +118,8 @@ public abstract class Nucleotide {
         nucleotideBondsMap.put("H1'", list);
     }
 
+    public static final double WC_MAX_DISTANCE = 3.1;
+    public static final double WC_MIN_ANGLE = 110;
 
     public boolean checkValidity() {
         for (int i = 0; i < nucleotideCoordinates.length ; i++)
@@ -154,6 +156,62 @@ public abstract class Nucleotide {
             nucleotideCoordinates[atomMap.get(atom)] = coordinates;
             return true;
         }
+    }
+
+    public abstract String[] getWcDonor();
+    public abstract String[] getWcAcceptor();
+    public abstract String[] getWcDonorH();
+
+    public static boolean isWatsonCrick(Nucleotide a, Nucleotide b) {
+        boolean result = false;
+        double dist, angle;
+        Point3D acc, don, hdon;
+
+        for (int i = 0; i < a.getWcDonor().length && i < b.getWcAcceptor().length; i++) {
+            String h = "H" + a.getWcDonor()[i].substring(1,2);
+            don = a.get(a.getWcDonor()[i]);
+            acc = b.get(b.getWcAcceptor()[i]);
+
+            if (a.get(h) != null) {
+                hdon = a.get(h);
+                dist = hdon.distance(acc);
+                angle = hdon.angle(acc, don);
+                if (dist > Nucleotide.WC_MAX_DISTANCE ||
+                        angle < Nucleotide.WC_MIN_ANGLE)
+                    return false;
+            } else if (a.get(h+"1") != null) {
+                dist = Math.min(a.get(h+"1").distance(acc), a.get(h+"2").distance(acc));
+                angle = Math.max(a.get(h+"1").angle(acc, don), a.get(h+"2").angle(acc,don));
+
+                if (dist > Nucleotide.WC_MAX_DISTANCE ||
+                        angle < Nucleotide.WC_MIN_ANGLE)
+                    return false;
+            }
+        }
+        for (int i = 0; i < a.getWcAcceptor().length && i < b.getWcDonor().length; i++) {
+            String h = "H" + b.getWcDonor()[i].substring(1,2);
+            don = b.get(b.getWcDonor()[i]);
+            acc = a.get(a.getWcAcceptor()[i]);
+
+            if (b.get(h) != null) {
+                hdon = b.get(h);
+                dist = hdon.distance(acc);
+                angle = hdon.angle(acc, don);
+                if (dist > Nucleotide.WC_MAX_DISTANCE ||
+                        angle < Nucleotide.WC_MIN_ANGLE)
+                    return false;
+            } else if (b.get(h+"1") != null) {
+                    dist = Math.min(b.get(h + "1").distance(acc), b.get(h + "2").distance(acc));
+                    angle = Math.max(b.get(h+"1").angle(acc, don), b.get(h+"2").angle(acc,don));
+
+                if (dist > Nucleotide.WC_MAX_DISTANCE ||
+                        angle < Nucleotide.WC_MIN_ANGLE)
+                    return false;
+            }
+            result = true;
+        }
+        System.err.println("Hit");
+        return result;
     }
 
     public Point3D[] getBaseCoordinates() {

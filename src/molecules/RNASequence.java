@@ -36,21 +36,30 @@ public class RNASequence extends Group {
                 if (resSeq != -1)
                     nucleotides.add(nucleotide);
                 switch(pdb.getAtoms().get(i).getResName()) {
+                    case "ADE":
                     case "A":
                         nucleotide = new Adenine();
                         break;
+                    case "URA":
                     case "U":
                         nucleotide = new Uracil();
                         break;
+                    case "GUA":
                     case "G":
                         nucleotide = new Guanine();
                         break;
+                    case "CYT":
                     case "C":
                         nucleotide = new Cytosine();
                         break;
+                    default:
+                        System.err.println("Nucleotide Base Type >" + pdb.getAtoms().get(i).getResName() + "< is unknown. Check your pdb-file");
+                        continue;
                 }
                 resSeq = pdb.getAtoms().get(i).getResSeq();
             }
+            System.err.println(pdb.getAtoms().get(i).getName());
+            System.err.println(pdb.getAtoms().get(i).getPoint3D());
             nucleotide.set(pdb.getAtoms().get(i).getName(), pdb.getAtoms().get(i).getPoint3D());
         }
         if (nucleotide != null && !nucleotide.checkValidity())
@@ -76,6 +85,42 @@ public class RNASequence extends Group {
 
         p = p.multiply(1/((double) nucleotides.size() * 2));
         return p;
+    }
+
+    public int[][] computeWCBonds() {
+        return computeWCBonds(true);
+    }
+
+    public int[][] computeWCBonds(boolean withSequence) {
+        ArrayList<int[]> edges = new ArrayList<>();
+
+        if (withSequence) {
+            for (int i = 0; i < nucleotides.size() - 1; i++)
+                edges.add(new int[]{i, i + 1});
+        }
+
+        for (int i = 0 ; i < nucleotides.size(); i++) {
+            for (int j = i+1 ; j < nucleotides.size(); j++) {
+                Point3D cA = nucleotides.get(i).get("C2");
+                Point3D cB = nucleotides.get(j).get("C2");
+                if (cA == null || cB == null) {
+                    System.err.println("cA or cB is null");
+                    if (Nucleotide.isWatsonCrick(nucleotides.get(i), nucleotides.get(j))) {
+                        int[] edge = {i, j};
+                        edges.add(edge);
+                    }
+                }
+                else if (cA.distance(cB) < 6.0 /*&& (j-i) != 1*/) {
+                    System.err.println("########" + i + "-" + j + "########");
+                    System.err.println("Distance C2: " + cA.distance(cB));
+                    if (Nucleotide.isWatsonCrick(nucleotides.get(i), nucleotides.get(j))) {
+                        int[] edge = {i, j};
+                        edges.add(edge);
+                    }
+                }
+            }
+        }
+        return edges.toArray(new int[edges.size()][2]);
     }
 
     public void setSelectionModel(NucleotideSelectionModel<Nucleotide> selectionModel) {
@@ -146,13 +191,5 @@ public class RNASequence extends Group {
 
     public ArrayList<Nucleotide> getNucleotides() {
         return nucleotides;
-    }
-
-    public static void main(String[] args) throws IOException {
-        RNASequence seq = new RNASequence(PDBParser.parse(new File("AUGC.pdb")));
-        System.out.println(seq.getNucleotides().size());
-        System.out.println("H2: " + seq.getNucleotides().get(1).get("H2"));
-        System.out.println("P: " + seq.getNucleotides().get(1).get("P"));
-        System.out.println("C5: " + seq.getNucleotides().get(1).get("C5"));
     }
 }

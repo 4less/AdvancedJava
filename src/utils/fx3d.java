@@ -1,5 +1,6 @@
 package utils;
 
+import javafx.animation.*;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -7,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -43,9 +45,7 @@ public class fx3d {
 
 
     public static Point3D computeCenter(Point3D[] coordinates, Point3D[]... coordinatesArray) {
-        System.err.print("computeCenter(coordinates): ");
         Point3D coordinateCenter = computeCenter(coordinates);
-        System.err.println("coordinatearray length" + coordinatesArray.length + ";");
         if (coordinatesArray.length < 1)
             return coordinateCenter;
         double x = coordinateCenter.getX(), y = coordinateCenter.getY(), z = coordinateCenter.getZ();
@@ -80,18 +80,15 @@ public class fx3d {
 
     public static Group coatGroup3D(Group group, Color color, double size) {
         Group coatedGroup = new Group();
-        System.err.println("coatGroup3D");
         coatGroup3dRecursion(coatedGroup, group, color, size);
         return coatedGroup;
     }
 
     public static Group coatGroup3dRecursion(Group coatedGroup, Group group, Color color, double size) {
-        System.err.println("coatGroup3dRecursion. #Children: " + group.getChildren().size());
         for (Node node : group.getChildren()) {
             if (node instanceof Group)
                 coatGroup3dRecursion(coatedGroup, ((Group) node), color, size);
             if (node instanceof Shape3D) {
-                System.err.println("is Shape");
                 coatedGroup.getChildren().add(coatShape3D((Shape3D) node, color, size));
             }
         }
@@ -106,6 +103,7 @@ public class fx3d {
                     ((Box) shape).getDepth() * size);
             coat.setMaterial(new PhongMaterial(color));
             copyTransforms(shape, coat);
+            coat.setPickOnBounds(false);
             return coat;
         }
         if (shape instanceof Cylinder) {
@@ -114,8 +112,7 @@ public class fx3d {
                     ((Cylinder) shape).getHeight());
             copyTransforms(shape, coat);
             coat.setMaterial(new PhongMaterial(color));
-
-            System.err.println("return Cylinder");
+            coat.setPickOnBounds(false);
             return coat;
         }
         if (shape instanceof MeshView) {
@@ -123,7 +120,7 @@ public class fx3d {
                     ((MeshView) shape).getMesh());
             copyTransforms(shape, coat);
             coat.setMaterial(new PhongMaterial(color));
-            System.err.println("return MeshView");
+            coat.setPickOnBounds(false);
             return coat;
         }
         if (shape instanceof Sphere) {
@@ -131,11 +128,31 @@ public class fx3d {
                     ((Sphere) shape).getRadius() * size);
             copyTransforms(shape, coat);
             coat.setMaterial(new PhongMaterial(color));
-            System.err.println("return Sphere");
+            coat.setPickOnBounds(false);
             return coat;
         }
         System.err.print("is no box no cylinder no meshview no sphere");
         return null;
+    }
+
+    public static void transiteFromTOo(Node from, Point3D to) {
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.setAutoReverse(false);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(300),
+                new KeyValue(from.translateXProperty(), from.getTranslateX() + to.getX()),
+                new KeyValue(from.translateYProperty(), from.getTranslateY() + to.getY()),
+                new KeyValue(from.translateZProperty(), from.getTranslateZ() + to.getZ())));
+        timeline.play();
+//
+//        TranslateTransition transition = new TranslateTransition(Duration.millis(300), from);
+//
+//        transition.setByX(to.getX());
+//        transition.setByY(to.getY());
+//        transition.setByZ(to.getZ());
+//
+//        transition.play();
+
     }
 
     private static void copyTransforms(Shape3D from, Shape3D to) {

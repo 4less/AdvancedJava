@@ -15,7 +15,7 @@ import javafx.scene.shape.Rectangle;
 public class VGraph extends Group {
     private double[][] nodeCoordinates;
     private int[][] edgeIndices;
-    private ObservableList<VNode> nodes = FXCollections.observableArrayList();
+    protected ObservableList<VNode> nodes = FXCollections.observableArrayList();
     private ObservableList<VEdge> edges = FXCollections.observableArrayList();
     private boolean bidirectional = true;
 
@@ -32,7 +32,7 @@ public class VGraph extends Group {
         setEdgeIndices(edgeIndices);
 
         for (int i = 0; i < this.nodeCoordinates.length; i++) {
-            if (i == 2) System.out.println(this.nodeCoordinates[i][0] + " : " + this.nodeCoordinates[i][1]);
+            //if (i == 2) System.out.println(this.nodeCoordinates[i][0] + " : " + this.nodeCoordinates[i][1]);
             VNode vortex = new VNode(i, "", this.nodeCoordinates[i][0], this.nodeCoordinates[i][1]);
             nodes.add(vortex);
             this.getChildren().add(vortex);
@@ -56,6 +56,13 @@ public class VGraph extends Group {
         this.setPickOnBounds(false);
         pane.applyCss();
         pane.layout();
+    }
+
+    protected void draw() {
+        this.setManaged(false);
+        this.setAutoSizeChildren(false);
+        this.setNeedsLayout(false);
+        this.setPickOnBounds(false);
     }
 
     public void printCoordinates() {

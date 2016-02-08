@@ -62,7 +62,6 @@ public class BallModel extends DrawModel {
             for (int i = 0, j = 0; i < residues.size(); i++) {
                 BallResidue res = (BallResidue) residues.get(i);
                 if (i == index[j]) {
-                    System.out.print(i + ", ");
                     if (j < index.length - 1)
                         j++;
                     if (res.isSelected())

@@ -13,8 +13,10 @@ import java.io.File;
  */
 public class RNAXDModel {
     private String fileName;
-    private BooleanProperty FILE_LOADED = new SimpleBooleanProperty(false);
+    private final BooleanProperty FILE_LOADED = new SimpleBooleanProperty(false);
     private PDB pdbfile;
+    private String sequence;
+    private int[][] bonds;
 
     public boolean getFILE_LOADED() {
         return FILE_LOADED.get();
@@ -38,5 +40,26 @@ public class RNAXDModel {
 
     public String getFileName() {
         return fileName;
+    }
+
+    public String getSequence() {
+        return sequence;
+    }
+
+    public void fileReloaded() {
+        FILE_LOADED.set(false);
+        FILE_LOADED.set(true);
+    }
+
+    public int[][] getBonds() {
+        return bonds;
+    }
+
+    public void setSequence(String sequence) {
+        this.sequence = sequence;
+    }
+
+    public void setBonds(int[][] bonds) {
+        this.bonds = bonds;
     }
 }

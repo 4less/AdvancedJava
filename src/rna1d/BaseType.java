@@ -11,7 +11,8 @@ public enum BaseType {
     Adenine ('A', Color.LIGHTBLUE, Color.PURPLE),
     Guanine ('G', Color.LIGHTGREEN, Color.PURPLE),
     Cytosine ('C', Color.LIGHTCORAL, Color.PURPLE),
-    Uracil ('U', Color.LIGHTYELLOW, Color.PURPLE);
+    Uracil ('U', Color.LIGHTYELLOW, Color.PURPLE),
+    N ('N', Color.GREY, Color.GREY);
 
     private char base;
     private Color baseColor;
@@ -42,5 +43,28 @@ public enum BaseType {
             default:
                 throw new IOException(c + " at pos " + pos + " is not a valid rna base.");
         }
+    }
+
+    public static BaseType getBaseType(String c) {
+        switch(c) {
+            case "A":
+                return Adenine;
+            case "G":
+                return Guanine;
+            case "C":
+                return Cytosine;
+            case "U":
+                return Uracil;
+            default:
+                return N;
+        }
+    }
+
+    public static Color getBaseColorFromString(String s) {
+        return getBaseType(s).getBaseColor();
+    }
+
+    public static Color getTypeColorFromString(String s) {
+        return getBaseType(s).getTypeColor();
     }
 }

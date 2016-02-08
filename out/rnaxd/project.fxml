@@ -44,6 +44,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
+                  <CheckMenuItem id="selectionFocusItem" fx:id="selectionFocusItem" mnemonicParsing="false" text="Center selected Nucleotide" />
                   <CheckMenuItem id="reloadItem" fx:id="reloadItem" mnemonicParsing="false" text="Reload on structure change" />
                   <Menu mnemonicParsing="false" text="Coloring scheme">
                      <items>
@@ -69,7 +70,7 @@
       </MenuBar>
    </top>
    <center>
-      <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.8626373626373627" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -158,8 +159,8 @@
                               </Button>
                            </children>
                         </VBox>
-                        <Pane id="pane2D" fx:id="pane2D" prefHeight="200.0" prefWidth="200.0" />
-                        <Pane id="pane3D" fx:id="pane3D" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                        <Pane id="pane2D" fx:id="pane2D" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Pane id="pane3D" fx:id="pane3D" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>
