@@ -2,112 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d53b730-2d22-4083-9ff7-919f1725d54a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/selection/NucleotideMouseSelection.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/rnaxd/RNAXDModel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/rnaxd/RNAXDPresenter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/selection/Selectable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/selection/SimpleMouseSelection.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/rnaxd/View2DController.java" />
-      <change type="DELETED" beforePath="D:\Universität\Advanced Java\out\production\FastAl\room\Room$CenterDev.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\Universität\Advanced Java\out\rna2d\RnaStructureGraph$2.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\Universität\Advanced Java\out\rna2d\RnaStructureGraph$3.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\Universität\Advanced Java\out\rna2d\RnaStructureGraph$4.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\Universität\Advanced Java\out\rnaxd\RNAXDView.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\Universität\Advanced Java\src\rnaxd\RNAXDView.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/molecules/Adenine.class" afterPath="$PROJECT_DIR$/out/molecules/Adenine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/program/AlignmentViewer.class" afterPath="$PROJECT_DIR$/out/program/AlignmentViewer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna1d/BaseBox.class" afterPath="$PROJECT_DIR$/out/rna1d/BaseBox.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna1d/BaseType.class" afterPath="$PROJECT_DIR$/out/rna1d/BaseType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/clusteringviewer/Controller.class" afterPath="$PROJECT_DIR$/out/clusteringviewer/Controller.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/molecules/Cytosine.class" afterPath="$PROJECT_DIR$/out/molecules/Cytosine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/program/DNAManipulator.class" afterPath="$PROJECT_DIR$/out/program/DNAManipulator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/dnamanipulator/view/EditBox.class" afterPath="$PROJECT_DIR$/out/dnamanipulator/view/EditBox.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/molecules/Guanine.class" afterPath="$PROJECT_DIR$/out/molecules/Guanine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/example/MouseHandler.class" afterPath="$PROJECT_DIR$/out/example/MouseHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/example/MySelectionModel.class" afterPath="$PROJECT_DIR$/out/example/MySelectionModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/dnamanipulator/view/NavigationBox.class" afterPath="$PROJECT_DIR$/out/dnamanipulator/view/NavigationBox.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/molecules/Nucleotide.class" afterPath="$PROJECT_DIR$/out/molecules/Nucleotide.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/molecules/NucleotideSelectionModel.class" afterPath="$PROJECT_DIR$/out/molecules/NucleotideSelectionModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/dnamanipulator/Presenter$1.class" afterPath="$PROJECT_DIR$/out/dnamanipulator/Presenter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/dnamanipulator/Presenter.class" afterPath="$PROJECT_DIR$/out/dnamanipulator/Presenter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/molecules/RNASequence.class" afterPath="$PROJECT_DIR$/out/molecules/RNASequence.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rnaxd/RNAXDModel.class" afterPath="$PROJECT_DIR$/out/rnaxd/RNAXDModel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rnaxd/RNAXDPresenter.class" afterPath="$PROJECT_DIR$/out/rnaxd/RNAXDPresenter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna2d/Rna2dStructure.class" afterPath="$PROJECT_DIR$/out/rna2d/Rna2dStructure.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna1d/RnaSequenceView.class" afterPath="$PROJECT_DIR$/out/rna1d/RnaSequenceView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna2d/RnaStructureGraph$1.class" afterPath="$PROJECT_DIR$/out/rna2d/RnaStructureGraph$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna2d/RnaStructureGraph$1Delta.class" afterPath="$PROJECT_DIR$/out/rna2d/RnaStructureGraph$1Delta.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna2d/RnaStructureGraph.class" afterPath="$PROJECT_DIR$/out/rna2d/RnaStructureGraph.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/example/SampleApp.class" afterPath="$PROJECT_DIR$/out/example/SampleApp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/io/Sequence.class" afterPath="$PROJECT_DIR$/out/io/Sequence.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/example/Simple3DViewerWithSelection.class" afterPath="$PROJECT_DIR$/out/example/Simple3DViewerWithSelection.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/example/TrafoTest.class" afterPath="$PROJECT_DIR$/out/example/TrafoTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/example/TreeTableViewExample.class" afterPath="$PROJECT_DIR$/out/example/TreeTableViewExample.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/molecules/Uracil.class" afterPath="$PROJECT_DIR$/out/molecules/Uracil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/ui/UserInterface.class" afterPath="$PROJECT_DIR$/out/ui/UserInterface.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna2d/VGraph.class" afterPath="$PROJECT_DIR$/out/rna2d/VGraph.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rna2d/VNode.class" afterPath="$PROJECT_DIR$/out/rna2d/VNode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/clusteringviewer/View$ClusterTreeItem.class" afterPath="$PROJECT_DIR$/out/clusteringviewer/View$ClusterTreeItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/clusteringviewer/View.class" afterPath="$PROJECT_DIR$/out/clusteringviewer/View.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/dnamanipulator/view/View.class" afterPath="$PROJECT_DIR$/out/dnamanipulator/view/View.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/simple3dviewer/View.class" afterPath="$PROJECT_DIR$/out/simple3dviewer/View.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/simplerna2dviewer/ViewController.class" afterPath="$PROJECT_DIR$/out/simplerna2dviewer/ViewController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/room/XformCamera.class" afterPath="$PROJECT_DIR$/out/room/XformCamera.class" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\augc.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/augc.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\ballview.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/ballview.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\center.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/center.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/utils/fx3d.class" afterPath="$PROJECT_DIR$/out/utils/fx3d.class" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\meshview.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/meshview.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\playrotate.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/playrotate.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\pyr_pur.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/pyr_pur.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\rotateleft.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/rotateleft.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\rotateright.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/rotateright.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\rxd_logo.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/rxd_logo.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\stickballview.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/stickballview.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\stickview.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/stickview.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\stoprotate.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/stoprotate.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\zoom_in.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/zoom_in.png" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\images\zoom_out.png" afterPath="$PROJECT_DIR$/src/rnaxd/images/zoom_out.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/molecules/Adenine.java" afterPath="$PROJECT_DIR$/src/molecules/Adenine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/molecules/BallModel.java" afterPath="$PROJECT_DIR$/src/molecules/BallModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rna1d/BaseBox.java" afterPath="$PROJECT_DIR$/src/rna1d/BaseBox.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rna1d/BaseType.java" afterPath="$PROJECT_DIR$/src/rna1d/BaseType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/molecules/Cytosine.java" afterPath="$PROJECT_DIR$/src/molecules/Cytosine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FastAl.iml" afterPath="$PROJECT_DIR$/FastAl.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/molecules/Guanine.java" afterPath="$PROJECT_DIR$/src/molecules/Guanine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/molecules/Nucleotide.java" afterPath="$PROJECT_DIR$/src/molecules/Nucleotide.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/molecules/NucleotideSelectionModel.java" afterPath="$PROJECT_DIR$/src/molecules/NucleotideSelectionModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/molecules/RNASequence.java" afterPath="$PROJECT_DIR$/src/molecules/RNASequence.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rna1d/RnaSequenceView.java" afterPath="$PROJECT_DIR$/src/rna1d/RnaSequenceView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rna2d/RnaStructureGraph.java" afterPath="$PROJECT_DIR$/src/rna2d/RnaStructureGraph.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/room/Room.java" afterPath="$PROJECT_DIR$/src/room/Room.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/molecules/Uracil.java" afterPath="$PROJECT_DIR$/src/molecules/Uracil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rna2d/VGraph.java" afterPath="$PROJECT_DIR$/src/rna2d/VGraph.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rna2d/VNode.java" afterPath="$PROJECT_DIR$/src/rna2d/VNode.java" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\augc.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/augc.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\ballview.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/ballview.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\buttons.css" afterPath="$PROJECT_DIR$/src/rnaxd/buttons.css" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\center.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/center.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/fx3d.java" afterPath="$PROJECT_DIR$/src/utils/fx3d.java" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\meshview.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/meshview.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/pdb1aa5.ent" afterPath="$PROJECT_DIR$/out/pdb1aa5.ent" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\playrotate.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/playrotate.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\primary.css" afterPath="$PROJECT_DIR$/src/rnaxd/primary.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/rnaxd/project.fxml" afterPath="$PROJECT_DIR$/out/rnaxd/project.fxml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\project.fxml" afterPath="$PROJECT_DIR$/src/rnaxd/project.fxml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\project2_split.fxml" afterPath="$PROJECT_DIR$/src/rnaxd/project2_split.fxml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\project2_split_2.fxml" afterPath="$PROJECT_DIR$/src/rnaxd/project2_split_2.fxml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\pyr_pur.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/pyr_pur.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\rotateleft.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/rotateleft.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\rotateright.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/rotateright.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\rxd_logo.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/rxd_logo.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/sp.ent" afterPath="$PROJECT_DIR$/out/sp.ent" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\stickballview.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/stickballview.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\stickview.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/stickview.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\stoprotate.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/stoprotate.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\zoom_in.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/zoom_in.xml" />
-      <change type="MODIFICATION" beforePath="D:\Universität\Advanced Java\src\rnaxd\xml\zoom_out.xml" afterPath="$PROJECT_DIR$/src/rnaxd/xml/zoom_out.xml" />
-      <change type="MOVED" beforePath="D:\Universität\Advanced Java\src\rnaxd\RnaXDMain.java" afterPath="$PROJECT_DIR$/src/rnaxd/RNAXDMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rnaxd/RNAXDPresenter.java" afterPath="$PROJECT_DIR$/src/rnaxd/RNAXDPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rnaxd/View2DController.java" afterPath="$PROJECT_DIR$/src/rnaxd/View2DController.java" />
     </list>
     <ignored path="FastAl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -133,12 +29,12 @@
       <file leaf-file-name="RNAXDPresenter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rnaxd/RNAXDPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.0">
-              <caret line="295" column="7" selection-start-line="295" selection-start-column="7" selection-end-line="295" selection-end-column="7" />
+            <state vertical-scroll-proportion="-12.140351">
+              <caret line="287" column="31" selection-start-line="287" selection-start-column="31" selection-end-line="287" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#16179#16180#0" expanded="true" />
-                <element signature="e#16207#16208#0" expanded="true" />
+                <element signature="e#16270#16271#0" expanded="true" />
+                <element signature="e#16298#16299#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -157,7 +53,7 @@
       <file leaf-file-name="NucleotideMouseSelection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/selection/NucleotideMouseSelection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.210526">
+            <state vertical-scroll-proportion="16.789474">
               <caret line="43" column="35" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -189,10 +85,16 @@
       <file leaf-file-name="View2DController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/rnaxd/View2DController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4463768">
-              <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.13692163">
+              <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1869#1870#0" expanded="true" />
+                <element signature="e#1899#1900#0" expanded="true" />
+                <element signature="e#2909#2910#0" expanded="true" />
+                <element signature="e#2952#2953#0" expanded="true" />
+                <element signature="e#3014#3015#0" expanded="true" />
+                <element signature="e#3056#3057#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -267,9 +169,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-11" />
-    <option name="width" value="1892" />
-    <option name="height" value="1811" />
+    <option name="x" value="-13" />
+    <option name="y" value="-13" />
+    <option name="width" value="3226" />
+    <option name="height" value="1826" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -781,16 +684,16 @@
       <workItem from="1454434901952" duration="1759000" />
       <workItem from="1454490379205" duration="4581000" />
       <workItem from="1454751311233" duration="26797000" />
-      <workItem from="1454834955933" duration="50187000" />
+      <workItem from="1454834955933" duration="58853000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89385000" />
+    <option name="totallyTimeSpent" value="98051000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="0" width="1892" height="1811" extended-state="0" />
-    <editor active="true" />
+    <frame x="-13" y="-13" width="3226" height="1826" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -800,10 +703,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3289801" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32039434" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24758843" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.144375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329602" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -872,8 +775,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#16179#16180#0" expanded="true" />
-            <element signature="e#16207#16208#0" expanded="true" />
+            <element signature="e#16270#16271#0" expanded="true" />
+            <element signature="e#16298#16299#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -923,8 +826,8 @@
           <caret line="181" column="16" selection-start-line="181" selection-start-column="16" selection-end-line="181" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#16179#16180#0" expanded="true" />
-            <element signature="e#16207#16208#0" expanded="true" />
+            <element signature="e#16270#16271#0" expanded="true" />
+            <element signature="e#16298#16299#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1142,7 +1045,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
           <folding>
-            <element signature="e#4579#4580#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1176,10 +1079,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="67" column="45" selection-start-line="67" selection-start-column="45" selection-end-line="67" selection-end-column="45" />
           <folding>
-            <element signature="e#1647#1648#0" expanded="true" />
-            <element signature="e#1699#1700#0" expanded="true" />
-            <element signature="e#1759#1760#0" expanded="true" />
-            <element signature="e#1811#1812#0" expanded="true" />
+            <element signature="e#1647#1648#0" expanded="false" />
+            <element signature="e#1699#1700#0" expanded="false" />
+            <element signature="e#1759#1760#0" expanded="false" />
+            <element signature="e#1811#1812#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1197,8 +1100,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="46" selection-end-column="5" />
           <folding>
-            <element signature="e#1877#1878#0" expanded="true" />
-            <element signature="e#1908#1909#0" expanded="true" />
+            <element signature="e#1877#1878#0" expanded="false" />
+            <element signature="e#1908#1909#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1224,8 +1127,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
           <folding>
-            <element signature="e#2288#2289#0" expanded="true" />
-            <element signature="e#2319#2320#0" expanded="true" />
+            <element signature="e#2288#2289#0" expanded="false" />
+            <element signature="e#2319#2320#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1251,7 +1154,7 @@
         <state vertical-scroll-proportion="0.29855072">
           <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1280,21 +1183,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/rna1d/RnaSequenceView.java">
+    <entry file="file://$PROJECT_DIR$/src/molecules/RNASequence.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-25.473684">
-          <caret line="56" column="32" selection-start-line="56" selection-start-column="32" selection-end-line="56" selection-end-column="32" />
+        <state vertical-scroll-proportion="-13.105263">
+          <caret line="194" column="0" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/selection/NucleotideMouseSelection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.210526">
-          <caret line="43" column="35" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1306,32 +1199,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/molecules/RNASequence.java">
+    <entry file="file://$PROJECT_DIR$/src/selection/NucleotideMouseSelection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.105263">
-          <caret line="194" column="0" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
+        <state vertical-scroll-proportion="16.789474">
+          <caret line="43" column="35" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rna1d/RnaSequenceView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-25.473684">
+          <caret line="56" column="32" selection-start-line="56" selection-start-column="32" selection-end-line="56" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/rnaxd/RNAXDPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.0">
-          <caret line="295" column="7" selection-start-line="295" selection-start-column="7" selection-end-line="295" selection-end-column="7" />
+        <state vertical-scroll-proportion="-12.140351">
+          <caret line="287" column="31" selection-start-line="287" selection-start-column="31" selection-end-line="287" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#16179#16180#0" expanded="true" />
-            <element signature="e#16207#16208#0" expanded="true" />
+            <element signature="e#16270#16271#0" expanded="true" />
+            <element signature="e#16298#16299#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/rnaxd/View2DController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4463768">
-          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.13692163">
+          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1869#1870#0" expanded="true" />
+            <element signature="e#1899#1900#0" expanded="true" />
+            <element signature="e#2909#2910#0" expanded="true" />
+            <element signature="e#2952#2953#0" expanded="true" />
+            <element signature="e#3014#3015#0" expanded="true" />
+            <element signature="e#3056#3057#0" expanded="true" />
           </folding>
         </state>
       </provider>

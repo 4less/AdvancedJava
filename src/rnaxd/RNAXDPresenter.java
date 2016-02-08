@@ -285,8 +285,9 @@ public class RNAXDPresenter implements Initializable {
                 (int) pane2D.getWidth(),
                 (int) pane2D.getHeight());
 
-
         listenOnPane2dResize();
+        view2DController.setScaleBinding(pane2D.widthProperty(), pane2D.heightProperty());
+
         view2DController.getGraph2d().setSelectionModel(selectionModel);
         pane2D.getChildren().add(view2DController.getGraph2d());
     }
